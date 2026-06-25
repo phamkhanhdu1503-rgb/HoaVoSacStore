@@ -13,60 +13,7 @@ require "config/database.php";
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    <style>
-        body {
-            background: #fff8f9; /* Nền trắng hồng nhẹ nhàng cực mướt mắt */
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        /* Thẻ thống kê phẳng, bo góc lớn 20px, đổ bóng hồng siêu mờ */
-        .card-stat-custom {
-            border: none;
-            border-radius: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 20px rgba(255, 179, 193, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .card-stat-custom:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(255, 117, 143, 0.12);
-        }
-
-        /* Icon hình tròn với dải màu pastel mềm mại */
-        .icon-shape {
-            width: 55px;
-            height: 55px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-        
-        /* Điểm nhấn thương hiệu Hồng Phấn */
-        .text-brand { color: #ff758f; }
-        
-        /* Chế độ Hover cho danh sách các thẻ chức năng nhanh */
-        .menu-grid-card {
-            border: none;
-            border-radius: 16px;
-            background: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
-            transition: all 0.2s ease;
-        }
-        .menu-grid-card:hover {
-            background-color: #ffccd5; /* Hover sang màu hồng sữa ngọt ngào */
-            transform: translateY(-2px);
-        }
-        .menu-grid-card:hover .menu-icon, 
-        .menu-grid-card:hover h6 {
-            color: #8a3a4b !important;
-        }
-    </style>
+     <link rel="stylesheet" href="../style/dashboard.css">
 </head>
 
 <body>
