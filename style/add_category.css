@@ -1,0 +1,76 @@
+body {
+    background: #fff8f9;
+    /* Nền trắng hồng nhẹ nhàng đồng bộ hệ thống */
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Thẻ Card lớn bọc ngoài Form tinh tế */
+.glass-card {
+    border: none;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 25px rgba(255, 179, 193, 0.05);
+    overflow: hidden;
+}
+
+/* Khung gợi ý / trạng thái bên cạnh */
+.stat-card {
+    border: none;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(255, 179, 193, 0.03);
+}
+
+/* Tinh chỉnh nhãn tên và ô nhập liệu mềm mại */
+.form-label-custom {
+    font-size: 13px;
+    font-weight: 700;
+    color: #5c4d50;
+    margin-left: 15px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control-custom {
+    border-radius: 50px !important;
+    padding: 14px 24px !important;
+    border: 1px solid #f8e9ec;
+    font-size: 14px;
+    background-color: #fffbfb;
+    color: #495057;
+    transition: all 0.2s ease;
+}
+
+.form-control-custom:focus {
+    background-color: #fff;
+    border-color: #ffb3c1;
+    box-shadow: 0 0 0 4px rgba(255, 179, 193, 0.15);
+    color: #212529;
+}
+
+/* Thiết kế nút bấm chuẩn pastel viên thuốc */
+.btn-submit-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #ff758f 0%, #ff4d6d 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(255, 117, 143, 0.2);
+    transition: all 0.25s ease;
+}
+
+.btn-submit-brand:hover {
+    background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(255, 117, 143, 0.3);
+    transform: translateY(-1px);
+}

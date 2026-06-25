@@ -1,26 +1,22 @@
 <?php
+
+// Kết nối database
 require '../config/database.php';
 
-// =============================
-// LẤY DANH SÁCH DANH MỤC
-// =============================
+// Lấy danh mục
 $categories = mysqli_query(
     $db,
     "SELECT * FROM categories ORDER BY name"
 );
 
-// =============================
-// CHECK ID
-// =============================
+// Kiểm tra id sản phẩm
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Thiếu ID sản phẩm!");
 }
-
+// Ép kiểu
 $id = (int) $_GET['id'];
 
-// =============================
-// LẤY DỮ LIỆU SẢN PHẨM
-// =============================
+// Lấy dữ liệu sản phẩm
 $stmt = $db->prepare("SELECT * FROM products WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -28,13 +24,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 $product = $result->fetch_assoc();
 
+// Hiện thông báo khi không tìm thấy sản phẩm
 if (!$product) {
     die("Không tìm thấy sản phẩm!");
 }
 
-// =============================
-// UPDATE KHI SUBMIT
-// =============================
+// Update khi submit
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $name = trim($_POST['name']);
@@ -43,31 +38,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $price = (float) $_POST['price'];
     $stock = (int) $_POST['stock'];
 
-    // Giữ ảnh cũ mặc định
+    // Giữ ảnh mặt định
     $imageName = $product['image'];
 
-    // =============================
-    // UPLOAD ẢNH MỚI NẾU CÓ
-    // =============================
+    // Upload ảnh mới nếu có
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
 
         $targetDir = "../uploads/";
-
+        
+        //Tạo thư mục nếu chưa có
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0777, true);
         }
-
+        // Đặt tên ảnh mới
         $imageName = time() . "_" . basename($_FILES['image']['name']);
-
+        // Di chuyển ảnh vào server
         move_uploaded_file(
             $_FILES['image']['tmp_name'],
             $targetDir . $imageName
         );
     }
 
-    // =============================
-    // UPDATE DATABASE
-    // =============================
+    // Update database
     $stmt = $db->prepare("
         UPDATE products
         SET
@@ -93,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->execute();
 
+    // Chuyển hướng khi thực thi thành công
     header("Location: products.php");
     exit;
 }
@@ -108,92 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    <style>
-        body {
-            background: #fff8f9; /* Nền trắng hồng nhẹ nhàng đồng bộ hệ thống */
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        /* Thẻ Card lớn bọc ngoài Form */
-        .form-card {
-            border: none;
-            border-radius: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 25px rgba(255, 179, 193, 0.05);
-            padding: 32px;
-        }
-
-        /* Tinh chỉnh các ô nhập liệu bo góc mềm mại */
-        .form-label {
-            font-weight: 600;
-            color: #5c4d50;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-        .form-control, .form-select {
-            border: 1px solid #f8e9ec;
-            background-color: #fffbfb;
-            border-radius: 12px;
-            padding: 10px 16px;
-            font-size: 14px;
-            color: #495057;
-            transition: all 0.2s ease;
-        }
-        .form-control:focus, .form-select:focus {
-            background-color: #ffffff;
-            border-color: #ffb3c1;
-            box-shadow: 0 0 0 4px rgba(255, 179, 193, 0.15);
-            color: #212529;
-        }
-
-        /* Định dạng hiển thị khung ảnh tròn trịa mềm mại */
-        .current-image-box {
-            background-color: #fff0f2;
-            padding: 12px;
-            border-radius: 16px;
-            display: inline-block;
-            border: 1px dashed #ffccd5;
-        }
-        .current-image-box img {
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        /* Kiểu dáng các nút bấm chức năng viên thuốc */
-        .btn-submit-save {
-            background-color: #ff758f;
-            color: #ffffff;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            padding: 10px 28px;
-            box-shadow: 0 4px 12px rgba(255, 117, 143, 0.2);
-            transition: all 0.25s ease;
-        }
-        .btn-submit-save:hover {
-            background-color: #ff4d6d;
-            color: #ffffff;
-            box-shadow: 0 6px 18px rgba(255, 117, 143, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .btn-back-list {
-            background-color: #f8f9fa;
-            color: #6c757d;
-            font-weight: 600;
-            border: 1px solid #e9ecef;
-            border-radius: 50px;
-            padding: 10px 24px;
-            transition: all 0.2s;
-        }
-        .btn-back-list:hover {
-            background-color: #e2e6ea;
-            color: #495057;
-        }
-    </style>
+    <link rel="stylesheet" href="../style/edit_product.css">
 </head>
-
 <body>
 
     <?php include '../sidebar.php'; ?>
