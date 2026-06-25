@@ -14,15 +14,15 @@ $cart_count_query->execute();
 $cart_count_result = $cart_count_query->get_result();
 
 if ($cart_row = $cart_count_result->fetch_assoc()) {
-    // Nếu tổng khác null thì gán vào biến, ngược lại (giỏ trống) thì gán bằng 0
-    $total_quantity = $cart_row['total'] ?? 0;
+  // Nếu tổng khác null thì gán vào biến, ngược lại (giỏ trống) thì gán bằng 0
+  $total_quantity = $cart_row['total'] ?? 0;
 }
 // ============================
 // DANH MỤC
 // ============================
 $categories = mysqli_query(
-    $db,
-    "SELECT * FROM categories ORDER BY name"
+  $db,
+  "SELECT * FROM categories ORDER BY name"
 );
 
 // ============================
@@ -48,8 +48,8 @@ $sql_featured = "
 ";
 
 $result_featured = mysqli_query(
-    $db,
-    $sql_featured
+  $db,
+  $sql_featured
 );
 
 // ============================
@@ -63,8 +63,8 @@ $sql_best_seller = "
 ";
 
 $result_best_seller = mysqli_query(
-    $db,
-    $sql_best_seller
+  $db,
+  $sql_best_seller
 );
 ?>
 
@@ -141,8 +141,15 @@ $result_best_seller = mysqli_query(
     }
 
     @keyframes dropIn {
-      from { opacity: 0; transform: translateY(-6px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .navbar-hoa .dropdown-item {
@@ -163,7 +170,10 @@ $result_best_seller = mysqli_query(
     }
 
     /* ===== SEARCH ===== */
-    .search-wrap { position: relative; }
+    .search-wrap {
+      position: relative;
+    }
+
     .search-wrap input {
       border: 1.5px solid #fbd0dd;
       border-radius: 20px;
@@ -175,27 +185,73 @@ $result_best_seller = mysqli_query(
       transition: border-color 0.18s, width 0.25s;
       outline: none;
     }
-    .search-wrap input:focus { border-color: #e8748a; width: 220px; background: #fff; }
+
+    .search-wrap input:focus {
+      border-color: #e8748a;
+      width: 220px;
+      background: #fff;
+    }
+
     .search-wrap .search-btn {
-      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-      border: none; background: none; color: #e8748a; font-size: 1rem; cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: none;
+      color: #e8748a;
+      font-size: 1rem;
+      cursor: pointer;
     }
 
     /* ===== ICON ACTIONS ===== */
     .nav-icon-btn {
-      background: none; border: none; color: #4a3040; font-size: 1.3rem; padding: 6px 8px;
-      border-radius: 8px; display: flex; align-items: center; transition: background 0.18s, color 0.18s;
-      position: relative; cursor: pointer; text-decoration: none;
-    }
-    .nav-icon-btn:hover { background: #fde8ef; color: #c0405a; }
-    .cart-badge {
-      position: absolute; top: 2px; right: 2px; background: #c0405a; color: #fff;
-      font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; line-height: 1;
+      background: none;
+      border: none;
+      color: #4a3040;
+      font-size: 1.3rem;
+      padding: 6px 8px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      transition: background 0.18s, color 0.18s;
+      position: relative;
+      cursor: pointer;
+      text-decoration: none;
     }
 
-    .navbar-toggler { border: 1.5px solid #fbd0dd; border-radius: 8px; padding: 5px 9px; }
-    .navbar-toggler:focus { box-shadow: none; }
+    .nav-icon-btn:hover {
+      background: #fde8ef;
+      color: #c0405a;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: #c0405a;
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .navbar-toggler {
+      border: 1.5px solid #fbd0dd;
+      border-radius: 8px;
+      padding: 5px 9px;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+
     .navbar-toggler-icon {
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c0405a' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
@@ -209,21 +265,25 @@ $result_best_seller = mysqli_query(
       margin-bottom: 25px;
       overflow: hidden;
     }
+
     .hero-title {
       font-size: 2.2rem;
       font-weight: 700;
       color: #4a3040;
       line-height: 1.25;
     }
+
     .hero-title span {
       color: #c0405a;
     }
+
     .hero-subtitle {
       font-size: 0.95rem;
       color: #6c757d;
       margin: 12px 0 20px 0;
       line-height: 1.5;
     }
+
     .btn-hero {
       background: #a81c39;
       color: #fff;
@@ -238,18 +298,21 @@ $result_best_seller = mysqli_query(
       box-shadow: 0 4px 12px rgba(168, 28, 57, 0.15);
       transition: all 0.3s ease;
     }
+
     .btn-hero:hover {
       background: #c0405a;
       color: #fff;
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(168, 28, 57, 0.25);
     }
+
     .hero-img-wrapper {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .hero-img-wrapper::before {
       content: '';
       position: absolute;
@@ -259,6 +322,7 @@ $result_best_seller = mysqli_query(
       border-radius: 50%;
       z-index: 1;
     }
+
     .hero-img {
       max-height: 280px;
       width: auto;
@@ -267,45 +331,58 @@ $result_best_seller = mysqli_query(
       z-index: 2;
       animation: floatEffect 4s ease-in-out infinite;
     }
+
     @keyframes floatEffect {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
     /* ===== HỘP ĐỀ XUẤT TÌM KIẾM ===== */
-.search-wrap {
-  position: relative;
-}
-.search-suggestions-box {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #fde8ef;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(192, 64, 90, 0.1);
-  max-height: 250px;
-  overflow-y: auto;
-  z-index: 1100;
-}
-.suggestion-item {
-  padding: 10px 14px;
-  font-size: 0.85rem;
-  color: #4a3040;
-  cursor: pointer;
-  transition: background 0.15s;
-  border-bottom: 1px solid #fff5f7;
-  display: block;
-  text-decoration: none;
-}
-.suggestion-item:last-child {
-  border-bottom: none;
-}
-.suggestion-item:hover {
-  background: #fde8ef;
-  color: #c0405a;
-}
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-suggestions-box {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #fde8ef;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(192, 64, 90, 0.1);
+      max-height: 250px;
+      overflow-y: auto;
+      z-index: 1100;
+    }
+
+    .suggestion-item {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #4a3040;
+      cursor: pointer;
+      transition: background 0.15s;
+      border-bottom: 1px solid #fff5f7;
+      display: block;
+      text-decoration: none;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion-item:hover {
+      background: #fde8ef;
+      color: #c0405a;
+    }
+
     /* ===================================================
        ===== STYLE PRODUCT CARD MỚI (VƯỜN HOA TƯƠI) =====
        =================================================== */
@@ -319,10 +396,12 @@ $result_best_seller = mysqli_query(
       flex-direction: column;
       height: 100%;
     }
+
     .product-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(232, 116, 138, 0.12);
     }
+
     .product-card .img-container {
       position: relative;
       width: 100%;
@@ -330,15 +409,18 @@ $result_best_seller = mysqli_query(
       overflow: hidden;
       background: #fafafb;
     }
+
     .product-card .img-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
+
     .product-card:hover .img-container img {
       transform: scale(1.04);
     }
+
     .product-card .card-body-hoa {
       padding: 16px;
       display: flex;
@@ -346,6 +428,7 @@ $result_best_seller = mysqli_query(
       flex-grow: 1;
       text-align: center;
     }
+
     .product-card .product-title {
       font-size: 0.95rem;
       font-weight: 600;
@@ -359,22 +442,25 @@ $result_best_seller = mysqli_query(
       height: 2.8rem;
       line-height: 1.4;
     }
+
     .product-card .product-title:hover {
       color: #c0405a;
     }
+
     .product-card .product-price {
       font-size: 1.1rem;
       font-weight: 700;
       color: #a81c39;
       margin-bottom: 15px;
     }
-    
+
     .product-card .action-row {
       display: flex;
       align-items: center;
       gap: 6px;
       margin-top: auto;
     }
+
     .product-card .btn-circle-action {
       width: 36px;
       height: 36px;
@@ -390,11 +476,13 @@ $result_best_seller = mysqli_query(
       text-decoration: none;
       flex-shrink: 0;
     }
+
     .product-card .btn-circle-action:hover {
       background: #fde8ef;
       border-color: #fbd0dd;
       color: #c0405a;
     }
+
     .product-card .btn-outline-hoa {
       flex: 1;
       height: 36px;
@@ -410,10 +498,12 @@ $result_best_seller = mysqli_query(
       text-decoration: none;
       transition: all 0.2s;
     }
+
     .product-card .btn-outline-hoa:hover {
       background: #f4f5f7;
       color: #222;
     }
+
     .product-card .btn-submit-hoa {
       flex: 1;
       height: 36px;
@@ -429,6 +519,7 @@ $result_best_seller = mysqli_query(
       transition: background 0.2s;
       border: none;
     }
+
     .product-card .btn-submit-hoa:hover {
       background: #c0405a;
       color: #fff;
@@ -436,20 +527,72 @@ $result_best_seller = mysqli_query(
 
     /* ===== MOBILE ADJUSTMENTS ===== */
     @media (max-width: 991.98px) {
-      .navbar-collapse { background: #fff; border-top: 1px solid #fde8ef; margin-top: 8px; padding: 8px 4px 12px; border-radius: 0 0 12px 12px; }
-      .search-wrap input { width: 100%; }
-      .search-wrap input:focus { width: 100%; }
-      .search-wrap { width: 100%; margin-bottom: 8px; }
-      .navbar-hoa .nav-link { border-radius: 8px; margin: 1px 0; }
-      .navbar-actions { border-top: 1px solid #fde8ef; padding-top: 10px; margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-      .product-card .img-container { height: 190px; }
-      
-      .hero-banner { padding: 25px 0; text-align: center; }
-      .hero-title { font-size: 1.8rem; }
-      .hero-subtitle { font-size: 0.88rem; margin: 10px 0 15px 0; }
-      .hero-img { max-height: 200px; }
-      .hero-img-wrapper::before { width: 180px; height: 180px; }
-      .hero-img-wrapper { margin-top: 20px; }
+      .navbar-collapse {
+        background: #fff;
+        border-top: 1px solid #fde8ef;
+        margin-top: 8px;
+        padding: 8px 4px 12px;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .search-wrap input {
+        width: 100%;
+      }
+
+      .search-wrap input:focus {
+        width: 100%;
+      }
+
+      .search-wrap {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+
+      .navbar-hoa .nav-link {
+        border-radius: 8px;
+        margin: 1px 0;
+      }
+
+      .navbar-actions {
+        border-top: 1px solid #fde8ef;
+        padding-top: 10px;
+        margin-top: 6px;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .product-card .img-container {
+        height: 190px;
+      }
+
+      .hero-banner {
+        padding: 25px 0;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.88rem;
+        margin: 10px 0 15px 0;
+      }
+
+      .hero-img {
+        max-height: 200px;
+      }
+
+      .hero-img-wrapper::before {
+        width: 180px;
+        height: 180px;
+      }
+
+      .hero-img-wrapper {
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
@@ -469,10 +612,12 @@ $result_best_seller = mysqli_query(
 
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-door"></i> Trang chủ</a></li>
-          
+          <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-door"></i> Trang
+              chủ</a></li>
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-flower2"></i> Sản phẩm</a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-flower2"></i> Sản
+              phẩm</a>
             <ul class="dropdown-menu">
               <?php while ($cat = mysqli_fetch_assoc($categories)) { ?>
                 <li>
@@ -485,7 +630,8 @@ $result_best_seller = mysqli_query(
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-gift"></i> Hoa theo dịp</a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-gift"></i> Hoa theo
+              dịp</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#"><i class="bi bi-balloon-heart"></i> Sinh nhật</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-heart"></i> Tình yêu</a></li>
@@ -497,7 +643,8 @@ $result_best_seller = mysqli_query(
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-basket2"></i> Kiểu cắm hoa</a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-basket2"></i> Kiểu
+              cắm hoa</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#"><i class="bi bi-bag-heart"></i> Bó hoa</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-basket"></i> Giỏ hoa</a></li>
@@ -511,46 +658,49 @@ $result_best_seller = mysqli_query(
         </ul>
 
         <form action="search_results.php" method="GET" class="search-wrap" id="searchForm" autocomplete="off">
-  <input type="search" name="keyword" id="searchInput" placeholder="Tìm hoa..." required>
-  <button class="search-btn" type="submit"><i class="bi bi-search"></i></button>
-  
-  <div id="searchSuggestions" class="search-suggestions-box d-none"></div>
-</form>
+          <input type="search" name="keyword" id="searchInput" placeholder="Tìm hoa..." required>
+          <button class="search-btn" type="submit"><i class="bi bi-search"></i></button>
 
-          <div class="dropdown">
-    <button class="nav-icon-btn" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản">
-        <i class="bi bi-person-circle"></i>
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <!-- Nếu đã đăng nhập, có thể hiện kèm tên user nhỏ nhỏ kế bên nếu muốn -->
-            <span class="ms-1" style="font-size: 0.8rem; font-weight: 600; color: #4a3040;">
+          <div id="searchSuggestions" class="search-suggestions-box d-none"></div>
+        </form>
+
+        <div class="dropdown">
+          <button class="nav-icon-btn" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản">
+            <i class="bi bi-person-circle"></i>
+            <?php if (isset($_SESSION['user_id'])): ?>
+              <!-- Nếu đã đăng nhập, có thể hiện kèm tên user nhỏ nhỏ kế bên nếu muốn -->
+              <span class="ms-1" style="font-size: 0.8rem; font-weight: 600; color: #4a3040;">
                 <?= htmlspecialchars($_SESSION['username'] ?? 'Thành viên') ?>
-            </span>
-        <?php endif; ?>
-    </button>
-    
-    <ul class="dropdown-menu dropdown-menu-end">
-        <?php if (!isset($_SESSION['user_id'])): ?>
-            <!-- CHƯA ĐĂNG NHẬP: Chỉ hiện Đăng nhập & Đăng ký -->
-            <li><a class="dropdown-item" href="login.php"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</a></li>
-            <li><a class="dropdown-item" href="register.php"><i class="bi bi-person-plus"></i> Đăng ký</a></li>
-        <?php else: ?>
-            <!-- ĐÃ ĐĂNG NHẬP: Ẩn đăng nhập/đăng ký, hiện các tính năng thành viên -->
-            <li><a class="dropdown-item" href="my_orders.php"><i class="bi bi-box-seam"></i> Đơn hàng của tôi</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Hồ sơ cá nhân</a></li>
-            <li><hr class="dropdown-divider my-1"></li>
-            <li><a class="dropdown-item text-danger" href="logout.php"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a></li>
-        <?php endif; ?>
-    </ul>
-</div>
-
-          <a class="nav-icon-btn" href="carts/cart.php" title="Giỏ hàng">
-            <i class="bi bi-cart3"></i> 
-            <?php if ($total_quantity > 0): ?>
-              <span class="cart-badge"><?= $total_quantity ?></span>
+              </span>
             <?php endif; ?>
-          </a>
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <?php if (!isset($_SESSION['user_id'])): ?>
+              <!-- CHƯA ĐĂNG NHẬP: Chỉ hiện Đăng nhập & Đăng ký -->
+              <li><a class="dropdown-item" href="login.php"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</a></li>
+              <li><a class="dropdown-item" href="register.php"><i class="bi bi-person-plus"></i> Đăng ký</a></li>
+            <?php else: ?>
+              <!-- ĐÃ ĐĂNG NHẬP: Ẩn đăng nhập/đăng ký, hiện các tính năng thành viên -->
+              <li><a class="dropdown-item" href="my_orders.php"><i class="bi bi-box-seam"></i> Đơn hàng của tôi</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Hồ sơ cá nhân</a></li>
+              <li>
+                <hr class="dropdown-divider my-1">
+              </li>
+              <li><a class="dropdown-item text-danger" href="logout.php"><i class="bi bi-box-arrow-right"></i> Đăng
+                  xuất</a></li>
+            <?php endif; ?>
+          </ul>
         </div>
+
+        <a class="nav-icon-btn" href="carts/cart.php" title="Giỏ hàng">
+          <i class="bi bi-cart3"></i>
+          <?php if ($total_quantity > 0): ?>
+            <span class="cart-badge"><?= $total_quantity ?></span>
+          <?php endif; ?>
+        </a>
       </div>
+    </div>
     </div>
   </nav>
 
@@ -563,14 +713,16 @@ $result_best_seller = mysqli_query(
             Qua Từng <span>Bó Hoa Tươi</span>
           </h1>
           <p class="hero-subtitle">
-            Khám phá những mẫu hoa thiết kế cao cấp, tinh tế và ngọt ngào dành riêng cho những dịp đặc biệt của bạn. Trải nghiệm dịch vụ chu đáo và uy tín hàng đầu!
+            Khám phá những mẫu hoa thiết kế cao cấp, tinh tế và ngọt ngào dành riêng cho những dịp đặc biệt của bạn.
+            Trải nghiệm dịch vụ chu đáo và uy tín hàng đầu!
           </p>
           <a href="#san-pham-moi" class="btn-hero">
             Mua sắm ngay <i class="bi bi-arrow-right-short fs-5"></i>
           </a>
         </div>
         <div class="col-lg-5 hero-img-wrapper">
-          <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=600&auto=format&fit=crop" class="hero-img" alt="Bó hoa ngọt ngào">
+          <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=600&auto=format&fit=crop"
+            class="hero-img" alt="Bó hoa ngọt ngào">
         </div>
       </div>
     </div>
@@ -579,194 +731,198 @@ $result_best_seller = mysqli_query(
   <div class="container py-4" id="san-pham-moi">
     <h3 class="mb-4 fw-bold">✨ Sản phẩm mới nhất</h3>
     <div class="row g-4">
-        <?php while ($row = mysqli_fetch_assoc($result)) { 
-            $img = !empty($row['image']) ? $row['image'] : 'default.png';
+      <?php while ($row = mysqli_fetch_assoc($result)) {
+        $img = !empty($row['image']) ? $row['image'] : 'default.png';
         ?>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="product-card">
-                    <div class="img-container">
-                        <img src="uploads/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
-                    </div>
-
-                    <div class="card-body-hoa">
-                        <a href="product_detail.php?id=<?= $row['id'] ?>" class="product-title">
-                            <?= htmlspecialchars($row['name']) ?>
-                        </a>
-
-                        <div class="product-price">
-                            <?= number_format($row['price']) ?>₫
-                        </div>
-
-                        <div class="action-row">
-                            <a href="#" class="btn-circle-action" title="Giảm số lượng"><i class="bi bi-dash-lg"></i></a>
-                            <button type="button" data-url="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
-                                <i class="bi bi-cart-plus"></i>
-                            </button>
-                            <a href="product_detail.php?id=<?= $row['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
-                            <a href="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-submit-hoa">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="product-card">
+            <div class="img-container">
+              <img src="uploads/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
             </div>
-        <?php } ?>
+
+            <div class="card-body-hoa">
+              <a href="product_detail.php?id=<?= $row['id'] ?>" class="product-title">
+                <?= htmlspecialchars($row['name']) ?>
+              </a>
+
+              <div class="product-price">
+                <?= number_format($row['price']) ?>₫
+              </div>
+
+              <div class="action-row">
+                <a href="#" class="btn-circle-action" title="Giảm số lượng"><i class="bi bi-dash-lg"></i></a>
+                <button type="button" data-url="carts/add_to_cart.php?id=<?= $row['id'] ?>"
+                  class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+                <a href="product_detail.php?id=<?= $row['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
+                <a href="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-submit-hoa">Mua ngay</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
     </div>
   </div>
 
   <div class="container mt-4">
     <h3 class="mb-4 fw-bold">🔥 Sản phẩm nổi bật</h3>
     <div class="row g-4">
-        <?php mysqli_data_seek($result_featured, 0); 
-        while ($row = mysqli_fetch_assoc($result_featured)) { 
-            $img = !empty($row['image']) ? $row['image'] : 'default.png';
+      <?php mysqli_data_seek($result_featured, 0);
+      while ($row = mysqli_fetch_assoc($result_featured)) {
+        $img = !empty($row['image']) ? $row['image'] : 'default.png';
         ?>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="product-card">
-                    <div class="img-container">
-                        <img src="uploads/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
-                    </div>
-
-                    <div class="card-body-hoa">
-                        <a href="product_detail.php?id=<?= $row['id'] ?>" class="product-title">
-                            <?= htmlspecialchars($row['name']) ?>
-                        </a>
-
-                        <div class="product-price">
-                            <?= number_format($row['price']) ?>₫
-                        </div>
-
-                        <div class="action-row">
-                            <a href="#" class="btn-circle-action" title="Giảm số lượng"><i class="bi bi-dash-lg"></i></a>
-                            <button type="button" data-url="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
-                                <i class="bi bi-cart-plus"></i>
-                            </button>
-                            <a href="product_detail.php?id=<?= $row['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
-                            <a href="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-submit-hoa">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="product-card">
+            <div class="img-container">
+              <img src="uploads/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
             </div>
-        <?php } ?>
+
+            <div class="card-body-hoa">
+              <a href="product_detail.php?id=<?= $row['id'] ?>" class="product-title">
+                <?= htmlspecialchars($row['name']) ?>
+              </a>
+
+              <div class="product-price">
+                <?= number_format($row['price']) ?>₫
+              </div>
+
+              <div class="action-row">
+                <a href="#" class="btn-circle-action" title="Giảm số lượng"><i class="bi bi-dash-lg"></i></a>
+                <button type="button" data-url="carts/add_to_cart.php?id=<?= $row['id'] ?>"
+                  class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+                <a href="product_detail.php?id=<?= $row['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
+                <a href="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-submit-hoa">Mua ngay</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
     </div>
   </div>
 
   <div class="container mt-5 mb-5">
     <h3 class="mb-4 fw-bold">👑 Sản phẩm bán chạy</h3>
     <div class="row g-4">
-        <?php while ($row = mysqli_fetch_assoc($result_best_seller)) { 
-            $img = !empty($row['image']) ? $row['image'] : 'default.png';
+      <?php while ($row = mysqli_fetch_assoc($result_best_seller)) {
+        $img = !empty($row['image']) ? $row['image'] : 'default.png';
         ?>
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="product-card">
-                    <div class="img-container">
-                        <img src="uploads/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
-                    </div>
-
-                    <div class="card-body-hoa">
-                        <a href="product_detail.php?id=<?= $row['id'] ?>" class="product-title">
-                            <?= htmlspecialchars($row['name']) ?>
-                        </a>
-
-                        <div class="product-price">
-                            <?= number_format($row['price']) ?>₫
-                        </div>
-
-                        <div class="action-row">
-                            <a href="#" class="btn-circle-action" title="Giảm số lượng"><i class="bi bi-dash-lg"></i></a>
-                            <button type="button" data-url="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
-                                <i class="bi bi-cart-plus"></i>
-                            </button>
-                            <a href="product_detail.php?id=<?= $row['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
-                            <a href="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-submit-hoa">Mua ngay</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="product-card">
+            <div class="img-container">
+              <img src="uploads/<?= htmlspecialchars($img) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
             </div>
-        <?php } ?>
+
+            <div class="card-body-hoa">
+              <a href="product_detail.php?id=<?= $row['id'] ?>" class="product-title">
+                <?= htmlspecialchars($row['name']) ?>
+              </a>
+
+              <div class="product-price">
+                <?= number_format($row['price']) ?>₫
+              </div>
+
+              <div class="action-row">
+                <a href="#" class="btn-circle-action" title="Giảm số lượng"><i class="bi bi-dash-lg"></i></a>
+                <button type="button" data-url="carts/add_to_cart.php?id=<?= $row['id'] ?>"
+                  class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+                <a href="product_detail.php?id=<?= $row['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
+                <a href="carts/add_to_cart.php?id=<?= $row['id'] ?>" class="btn-submit-hoa">Mua ngay</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-  document.querySelectorAll('.btn-add-to-cart-ajax').forEach(button => {
-      button.addEventListener('click', function(e) {
-          e.preventDefault();
-          const url = this.getAttribute('data-url');
+    document.querySelectorAll('.btn-add-to-cart-ajax').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        const url = this.getAttribute('data-url');
 
-          // Thực hiện gửi request ngầm lên server
-          fetch(url, {
-              method: 'GET',
-              headers: {
-                  'X-Requested-With': 'XMLHttpRequest'
-              }
-          })
+        // Thực hiện gửi request ngầm lên server
+        fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
           .then(response => response.json())
           .then(data => {
-              if (data.success) {
-                  // Định vị lại vùng Badge
-                  let badge = document.querySelector('.cart-badge');
-                  let cartBtn = document.querySelector('.nav-icon-btn[title="Giỏ hàng"]');
-                  
-                  if (badge) {
-                      // Nếu đã có badge (số lượng > 0), cộng thêm 1 vào số lượng cũ
-                      let currentQty = parseInt(badge.textContent) || 0;
-                      badge.textContent = currentQty + 1;
-                  } else if (cartBtn) {
-                      // Nếu giỏ hàng đang trống hoàn toàn, tạo mới thẻ span badge
-                      cartBtn.insertAdjacentHTML('beforeend', '<span class="cart-badge">1</span>');
-                  }
-                  
-                  // Hiển thị thông báo nhỏ thành công (Có thể thay thế bằng Toast/Modal tùy thích)
-                  alert('Đã thêm sản phẩm vào giỏ hàng! ✨');
-              } else {
-                  alert('Có lỗi xảy ra: ' + (data.message || 'Không thể thêm sản phẩm.'));
+            if (data.success) {
+              // Định vị lại vùng Badge
+              let badge = document.querySelector('.cart-badge');
+              let cartBtn = document.querySelector('.nav-icon-btn[title="Giỏ hàng"]');
+
+              if (badge) {
+                // Nếu đã có badge (số lượng > 0), cộng thêm 1 vào số lượng cũ
+                let currentQty = parseInt(badge.textContent) || 0;
+                badge.textContent = currentQty + 1;
+              } else if (cartBtn) {
+                // Nếu giỏ hàng đang trống hoàn toàn, tạo mới thẻ span badge
+                cartBtn.insertAdjacentHTML('beforeend', '<span class="cart-badge">1</span>');
               }
+
+              // Hiển thị thông báo nhỏ thành công (Có thể thay thế bằng Toast/Modal tùy thích)
+              alert('Đã thêm sản phẩm vào giỏ hàng! ✨');
+            } else {
+              alert('Có lỗi xảy ra: ' + (data.message || 'Không thể thêm sản phẩm.'));
+            }
           })
           .catch(error => {
-              console.error('Lỗi AJAX:', error);
-              alert('Không thể kết nối đến máy chủ.');
+            console.error('Lỗi AJAX:', error);
+            alert('Không thể kết nối đến máy chủ.');
           });
       });
-  });
+    });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput");
-    const suggestionsBox = document.getElementById("searchSuggestions");
-    const searchForm = document.getElementById("searchForm");
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("searchInput");
+      const suggestionsBox = document.getElementById("searchSuggestions");
+      const searchForm = document.getElementById("searchForm");
 
-    // 1. Lắng nghe sự kiện gõ phím vào ô tìm kiếm
-    searchInput.addEventListener("input", function () {
+      // 1. Lắng nghe sự kiện gõ phím vào ô tìm kiếm
+      searchInput.addEventListener("input", function () {
         let keyword = this.value.trim();
 
         if (keyword.length >= 1) { // Gõ từ 1 ký tự trở lên thì bắt đầu tìm
-            fetch(`ajax_search.php?keyword=${encodeURIComponent(keyword)}`)
-                .then(response => response.text())
-                .then(html => {
-                    suggestionsBox.innerHTML = html;
-                    suggestionsBox.classList.remove("d-none"); // Hiện hộp đề xuất
-                });
+          fetch(`ajax_search.php?keyword=${encodeURIComponent(keyword)}`)
+            .then(response => response.text())
+            .then(html => {
+              suggestionsBox.innerHTML = html;
+              suggestionsBox.classList.remove("d-none"); // Hiện hộp đề xuất
+            });
         } else {
-            suggestionsBox.classList.add("d-none"); // Ẩn nếu ô tìm kiếm trống
+          suggestionsBox.classList.add("d-none"); // Ẩn nếu ô tìm kiếm trống
         }
-    });
+      });
 
-    // 2. Lắng nghe khi người dùng click chọn 1 hàng đề xuất
-    suggestionsBox.addEventListener("click", function (e) {
+      // 2. Lắng nghe khi người dùng click chọn 1 hàng đề xuất
+      suggestionsBox.addEventListener("click", function (e) {
         const item = e.target.closest(".suggestion-item");
         if (item && item.dataset.name) {
-            searchInput.value = item.dataset.name; // Điền tên hoa vào ô input
-            suggestionsBox.classList.add("d-none"); // Ẩn hộp đề xuất đi
-            searchForm.submit(); // Tự động submit tìm luôn cho tiện
+          searchInput.value = item.dataset.name; // Điền tên hoa vào ô input
+          suggestionsBox.classList.add("d-none"); // Ẩn hộp đề xuất đi
+          searchForm.submit(); // Tự động submit tìm luôn cho tiện
         }
-    });
+      });
 
-    // 3. Ẩn hộp đề xuất khi click chuột ra ngoài vùng tìm kiếm
-    document.addEventListener("click", function (e) {
+      // 3. Ẩn hộp đề xuất khi click chuột ra ngoài vùng tìm kiếm
+      document.addEventListener("click", function (e) {
         if (!searchForm.contains(e.target)) {
-            suggestionsBox.classList.add("d-none");
+          suggestionsBox.classList.add("d-none");
         }
+      });
     });
-});
   </script>
 </body>
+
 </html>
