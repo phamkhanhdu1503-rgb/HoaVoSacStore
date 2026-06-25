@@ -889,33 +889,52 @@ $result_best_seller = mysqli_query(
       const suggestionsBox = document.getElementById("searchSuggestions");
       const searchForm = document.getElementById("searchForm");
 
-      // 1. Lắng nghe sự kiện gõ phím vào ô tìm kiếm
-      searchInput.addEventListener("input", function () {
-        let keyword = this.value.trim();
+      if (!searchInput || !suggestionsBox || !searchForm) return;
 
-        if (keyword.length >= 1) { // Gõ từ 1 ký tự trở lên thì bắt đầu tìm
-          fetch(`ajax_search.php?keyword=${encodeURIComponent(keyword)}`)
-            .then(response => response.text())
-            .then(html => {
-              suggestionsBox.innerHTML = html;
-              suggestionsBox.classList.remove("d-none"); // Hiện hộp đề xuất
-            });
-        } else {
-          suggestionsBox.classList.add("d-none"); // Ẩn nếu ô tìm kiếm trống
+      const renderSuggestions = (keyword) => {
+        const trimmed = keyword.trim();
+
+        if (trimmed.length < 1) {
+          suggestionsBox.innerHTML = "";
+          suggestionsBox.classList.add("d-none");
+          return;
         }
+
+        fetch(`ajax_search.php?keyword=${encodeURIComponent(trimmed)}`, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then(response => response.text())
+          .then(html => {
+            suggestionsBox.innerHTML = html;
+            if (html.trim()) {
+              suggestionsBox.classList.remove("d-none");
+            } else {
+              suggestionsBox.classList.add("d-none");
+            }
+          })
+          .catch(() => {
+            suggestionsBox.innerHTML = '<div class="suggestion-item text-muted">Không thể tải gợi ý lúc này.</div>';
+            suggestionsBox.classList.remove("d-none");
+          });
+      };
+
+      searchInput.addEventListener("input", function () {
+        renderSuggestions(this.value);
       });
 
-      // 2. Lắng nghe khi người dùng click chọn 1 hàng đề xuất
+      searchInput.addEventListener("focus", function () {
+        renderSuggestions(this.value);
+      });
+
       suggestionsBox.addEventListener("click", function (e) {
         const item = e.target.closest(".suggestion-item");
         if (item && item.dataset.name) {
-          searchInput.value = item.dataset.name; // Điền tên hoa vào ô input
-          suggestionsBox.classList.add("d-none"); // Ẩn hộp đề xuất đi
-          searchForm.submit(); // Tự động submit tìm luôn cho tiện
+          searchInput.value = item.dataset.name;
+          suggestionsBox.classList.add("d-none");
+          searchForm.submit();
         }
       });
 
-      // 3. Ẩn hộp đề xuất khi click chuột ra ngoài vùng tìm kiếm
       document.addEventListener("click", function (e) {
         if (!searchForm.contains(e.target)) {
           suggestionsBox.classList.add("d-none");

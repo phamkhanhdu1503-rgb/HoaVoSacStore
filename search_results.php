@@ -366,19 +366,41 @@ $products = $stmt->get_result();
       const suggestionsBox = document.getElementById("searchSuggestions");
       const searchForm = document.getElementById("searchForm");
 
-      // Xử lý gợi ý tìm kiếm
-      searchInput.addEventListener("input", function () {
-          let keyword = this.value.trim();
-          if (keyword.length >= 1) {
-              fetch(`ajax_search.php?keyword=${encodeURIComponent(keyword)}`)
-                  .then(response => response.text())
-                  .then(html => {
-                      suggestionsBox.innerHTML = html;
-                      suggestionsBox.classList.remove("d-none");
-                  });
-          } else {
+      if (!searchInput || !suggestionsBox || !searchForm) return;
+
+      const renderSuggestions = (keyword) => {
+          const trimmed = keyword.trim();
+
+          if (trimmed.length < 1) {
+              suggestionsBox.innerHTML = "";
               suggestionsBox.classList.add("d-none");
+              return;
           }
+
+          fetch(`ajax_search.php?keyword=${encodeURIComponent(trimmed)}`, {
+              headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          })
+              .then(response => response.text())
+              .then(html => {
+                  suggestionsBox.innerHTML = html;
+                  if (html.trim()) {
+                      suggestionsBox.classList.remove("d-none");
+                  } else {
+                      suggestionsBox.classList.add("d-none");
+                  }
+              })
+              .catch(() => {
+                  suggestionsBox.innerHTML = '<div class="suggestion-item text-muted">Không thể tải gợi ý lúc này.</div>';
+                  suggestionsBox.classList.remove("d-none");
+              });
+      };
+
+      searchInput.addEventListener("input", function () {
+          renderSuggestions(this.value);
+      });
+
+      searchInput.addEventListener("focus", function () {
+          renderSuggestions(this.value);
       });
 
       suggestionsBox.addEventListener("click", function (e) {
