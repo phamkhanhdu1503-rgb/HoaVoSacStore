@@ -1,0 +1,117 @@
+body {
+    background: #fff8f9;
+    /* Nền trắng hồng nhẹ nhàng đồng bộ hệ thống */
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Thẻ Card lớn bọc ngoài bảng dữ liệu */
+.table-card {
+    border: none;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 25px rgba(255, 179, 193, 0.05);
+    padding: 24px;
+    overflow: hidden;
+}
+
+/* Tinh chỉnh bảng Table phẳng, bo góc mềm mại */
+.table-custom {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: none;
+}
+
+.table-custom thead th {
+    background-color: #ffccd5 !important;
+    /* Đầu bảng màu hồng pastel sữa */
+    color: #8a3a4b !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 14px 16px;
+    border: none;
+}
+
+.table-custom tbody td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    color: #495057;
+    font-size: 14px;
+    border-bottom: 1px solid #f8e9ec;
+    border-top: none;
+}
+
+.table-custom tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-custom tbody tr:hover td {
+    background-color: #fff0f2 !important;
+    /* Hiệu ứng hover dòng nhẹ nhàng */
+}
+
+/* Bo góc cho phần đầu và cuối bảng */
+.table-custom thead tr th:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.table-custom thead tr th:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Giá tiền nổi bật phong cách store hoa */
+.price-text {
+    font-weight: 700;
+    color: #8a3a4b;
+}
+
+/* Nút hành động Xem chi tiết viên thuốc */
+.btn-action-view {
+    background-color: #ffe5ec;
+    color: #ff4d6d;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.btn-action-view:hover {
+    background-color: #ff4d6d;
+    color: #ffffff;
+}
+
+/* Tinh chỉnh Dropdown trạng thái đơn hàng dạng pill mềm mại */
+.status-dropdown-btn {
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom menu dropdown tinh tế */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 6px;
+}
+
+.dropdown-item {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: #495057;
+}
+
+.dropdown-item:hover {
+    background-color: #fff0f2;
+    color: #ff4d6d;
+}
