@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Quản Lý Sản Phẩm Hoa Vô Sắc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        /* --- CSS HỆ THỐNG GIAO DIỆN ADMIN --- */
+        body {
+            background-color: #f8f9fa;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* Tông màu chủ đạo đỏ sẫm */
+        .text-brand { color: #a50920; }
+        .bg-brand { background-color: #a50920 !important; }
+        
+        /* Cấu trúc thẻ Card chính chứa bảng */
+        .main-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Định dạng bảng danh sách sản phẩm hiển thị */
+        .product-table th {
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+            font-size: 13px;
+            padding: 15px;
+            background-color: #f1f3f5;
+        }
+        .product-table td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+        .product-img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* --- CSS CHO CẤU TRÚC FROM BUTTON CHUẨN CỦA BẠN --- */
+        .modal-content {
+            border-radius: 24px !important;
+            border: none !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        /* Định dạng nhãn text của ô input giống trang Đặt hàng */
+        .form-label-custom {
+            font-size: 13px;
+            font-weight: bold;
+            color: #6c757d;
+            margin-left: 12px;
+            margin-bottom: 6px;
+        }
+
+        /* Các ô nhập liệu bo tròn viền gọn gàng */
+        .form-control-custom {
+            border-radius: 50px !important;
+            padding: 10px 20px !important;
+            border: 1px solid #dee2e6;
+            font-size: 15px;
+        }
+        .form-control-custom:focus {
+            border-color: #a50920;
+            box-shadow: 0 0 0 0.25rem rgba(165, 9, 32, 0.15);
+        }
+        
+        /* Ô mô tả dáng vuông nhẹ nhưng vẫn bo góc */
+        .textarea-custom {
+            border-radius: 15px !important;
+            padding: 12px 20px !important;
+        }
+
+        /* Nút bấm Đỏ Sẫm Trải Dài 100% chuẩn From Button */
+        .btn-submit-brand {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #a50920;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 50px; /* Định dạng viên thuốc rounded-pill */
+            box-shadow: 0 4px 12px rgba(165, 9, 32, 0.25);
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-submit-brand:hover {
+            background-color: #840719;
+            color: #ffffff;
+            box-shadow: 0 6px 15px rgba(165, 9, 32, 0.35);
+            transform: translateY(-1px);
+        }
+        .btn-submit-brand:active {
+            transform: translateY(1px);
+        }
+
+        /* Nút mở Modal thêm mới */
+        .btn-add-new {
+            background-color: #a50920;
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            padding: 10px 24px;
+            border: none;
+        }
+        .btn-add-new:hover {
+            background-color: #840719;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-brand py-3 mb-5 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#"><i class="bi bi-shield-lock-fill me-2"></i>Trang Quản Trị - Hoa Vô Sắc</a>
+            <a href="../index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Quay Lại Cửa Hàng</a>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <div class="card main-card p-4 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <div>
+                    <h3 class="fw-bold m-0 text-dark">Quản Lý Danh Sách Sản Phẩm</h3>
+                    <p class="text-muted small m-0">Thực hiện cập nhật thêm, sửa thông tin chi tiết hoặc xóa bỏ các gói hoa</p>
+                </div>
+                <button class="btn btn-add-new shadow-sm text-uppercase" data-bs-toggle="modal" data-bs-target="#productModal" onclick="openAddModal()">
+                    <i class="bi bi-plus-circle-fill me-2"></i>Thêm Sản Phẩm
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover product-table align-middle m-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;" class="text-center">Hình Ảnh</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th style="width: 140px;">Giá Bán</th>
+                            <th style="width: 350px;">Mô Tả Sản Phẩm</th>
+                            <th style="width: 120px;" class="text-center">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
+            <div class="modal-content p-2">
+                <div class="modal-header border-0 pb-0">
+                    <h3 class="modal-title fw-bold w-100 text-center text-brand" id="productModalLabel">Thêm Sản Phẩm Mới 🛒</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    
+                    <form id="productForm" novalidate class="needs-validation">
+                        <input type="hidden" id="productId">
+                        
+                        <div class="mb-3">
+                            <label class="form-label-custom">Tên Sản Phẩm</label>
+                            <input type="text" id="productName" class="form-control form-control-custom" required placeholder="Nhập tên sản phẩm hoa">
+                            <div class="invalid-feedback ps-3 small">Vui lòng nhập tên sản phẩm.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label-custom">Giá Sản Phẩm</label>
+                            <input type="text" id="productPrice" class="form-control form-control-custom" required placeholder="Ví dụ: 850.000đ">
+                            <div class="invalid-feedback ps-3 small">Vui lòng nhập giá bán.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label-custom">Đường dẫn hình ảnh (Path)</label>
+                            <input type="text" id="productImg" class="form-control form-control-custom" required placeholder="Ví dụ: ../images/box_hoa.jpg">
+                            <div class="invalid-feedback ps-3 small">Vui lòng nhập đường dẫn file ảnh.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label-custom">Mô Tả Sản Phẩm</label>
+                            <textarea id="productDesc" class="form-control form-control-custom textarea-custom" rows="3" required placeholder="Viết nội dung mô tả chi tiết sản phẩm hoa tại đây..."></textarea>
+                            <div class="invalid-feedback ps-3 small">Vui lòng nhập nội dung mô tả ngắn.</div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn-submit-brand" id="btnSave">
+                                LƯU LẠI SẢN PHẨM
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sản phẩm hoa mặc định khởi tạo ban đầu
+        const defaultData = [
+            {
+                id: 1,
+                name: "Hộp Hoa Tươi Mica FlowerBox Sheep Of Love",
+                price: "850.000đ",
+                img: "../images/box hoa.jpg",
+                desc: "Mica FlowerBox Sheep Of Love là phiên bản cải tiến từ hoa tươi kèm theo một chú gấu bông nhập khẩu dễ thương, lông mịn đó chính là chú cừu con trắng."
+            }
+        ];
+
+        // Lấy dữ liệu lưu trong máy (localStorage) ra dùng
+        let products = JSON.parse(localStorage.getItem('admin_products')) || defaultData;
+        let isEditMode = false;
+        
+        const productModal = new bootstrap.Modal(document.getElementById('productModal'));
+        const form = document.getElementById('productForm');
+
+        // Hàm vẽ danh sách sản phẩm lên bảng
+        function renderTable() {
+            const tbody = document.getElementById('productTableBody');
+            tbody.innerHTML = '';
+
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-5">Danh sách trống. Hãy bấm thêm sản phẩm!</td></tr>`;
+                return;
+            }
+
+            products.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="text-center"><img src="${item.img}" class="product-img" onerror="this.src='https://placehold.co/65x65?text=Hoa'"></td>
+                        <td><strong class="text-dark">${item.name}</strong><br><span class="text-muted small">ID: #${item.id}</span></td>
+                        <td><span class="text-brand fw-bold">${item.price}</span></td>
+                        <td><div class="text-secondary small" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap;">${item.desc}</div></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary rounded-circle me-1" onclick="openEditModal(${item.id})"><i class="bi bi-pencil-fill"></i></button>
+                            <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="deleteProduct(${item.id})"><i class="bi bi-trash-fill"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Đồng bộ dữ liệu mới nhất vào bộ nhớ trình duyệt
+            localStorage.setItem('admin_products', JSON.stringify(products));
+        }
+
+        // Cấu hình chế độ THÊM MỚI
+        function openAddModal() {
+            isEditMode = false;
+            document.getElementById('productModalLabel').innerText = "Thêm Sản Phẩm Mới 🛒";
+            form.reset();
+            form.classList.remove('was-validated');
+        }
+
+        // Cấu hình chế độ SỬA SẢN PHẨM
+        function openEditModal(id) {
+            isEditMode = true;
+            document.getElementById('productModalLabel').innerText = "Chỉnh Sửa Sản Phẩm 🛠️";
+            form.classList.remove('was-validated');
+
+            const item = products.find(p => p.id === id);
+            if (item) {
+                document.getElementById('productId').value = item.id;
+                document.getElementById('productName').value = item.name;
+                document.getElementById('productPrice').value = item.price;
+                document.getElementById('productImg').value = item.img;
+                document.getElementById('productDesc').value = item.desc;
+                productModal.show();
+            }
+        }
+
+        // Xóa sản phẩm ra khỏi bảng
+        function deleteProduct(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa vĩnh viễn sản phẩm này không?")) {
+                products = products.filter(p => p.id !== id);
+                renderTable();
+            }
+        }
+
+        // Bắt lỗi gõ phím Enter tự động nhảy xuống ô và hiện dấu tích xanh giống form trước
+        const inputs = Array.from(form.querySelectorAll('input, textarea'));
+        inputs.forEach((input, index) => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && input.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    if (input.value.trim() !== '') {
+                        input.setCustomValidity('');
+                        input.parentElement.classList.add('was-validated');
+                        if (index < inputs.length - 1) inputs[index + 1].focus();
+                    } else {
+                        input.setCustomValidity('Trống');
+                        input.parentElement.classList.add('was-validated');
+                    }
+                }
+            });
+        });
+
+        // Xử lý lưu dữ liệu khi nhấn Submit Form nút bấm
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!form.checkValidity()) {
+                e.stopPropagation();
+                form.classList.add('was-validated');
+                return;
+            }
+
+            const id = document.getElementById('productId').value;
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value.trim();
+            const img = document.getElementById('productImg').value.trim();
+            const desc = document.getElementById('productDesc').value.trim();
+
+            if (isEditMode) {
+                products = products.map(p => p.id == id ? { id: Number(id), name, price, img, desc } : p);
+            } else {
+                products.push({ id: Date.now(), name, price, img, desc });
+            }
+
+            renderTable();
+            productModal.hide();
+        });
+
+        // Chạy tải dữ liệu khi trang vừa mở
+        window.onload = renderTable;
+    </script>
+</body>
+</html>
