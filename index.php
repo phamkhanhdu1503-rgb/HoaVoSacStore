@@ -727,7 +727,16 @@ html {
 
         <div class="dropdown">
           <button class="nav-icon-btn" data-bs-toggle="dropdown" aria-expanded="false" title="Tài khoản">
-            <i class="bi bi-person-circle"></i>
+            <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['avatar'])): ?>
+
+    <img src="uploads/<?= htmlspecialchars($_SESSION['avatar']) ?>"
+         style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+
+<?php else: ?>
+
+    <i class="bi bi-person-circle"></i>
+
+<?php endif; ?>
             <?php if (isset($_SESSION['user_id'])): ?>
               <!-- Nếu đã đăng nhập, có thể hiện kèm tên user nhỏ nhỏ kế bên nếu muốn -->
               <span class="ms-1" style="font-size: 0.8rem; font-weight: 600; color: #4a3040;">
@@ -744,7 +753,7 @@ html {
             <?php else: ?>
               <!-- ĐÃ ĐĂNG NHẬP: Ẩn đăng nhập/đăng ký, hiện các tính năng thành viên -->
               <li><a class="dropdown-item" href="my_orders.php"><i class="bi bi-box-seam"></i> Đơn hàng của tôi</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-person-badge"></i> Hồ sơ cá nhân</a></li>
+              <li><a class="dropdown-item" href="profile.php"><i class="bi bi-person-badge"></i> Hồ sơ cá nhân</a></li>
               <li>
                 <hr class="dropdown-divider my-1">
               </li>

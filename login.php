@@ -1,10 +1,8 @@
 <?php
-
 require 'config/guest.php';
-// Kết nối database
 require 'config/database.php';
 
-// Nếu đã đăng nhập thì chuyển hướng theo quyền
+// nếu đã login
 if (isset($_SESSION['user_id'])) {
 
     if ($_SESSION['role'] === 'admin') {
@@ -12,25 +10,26 @@ if (isset($_SESSION['user_id'])) {
     } else {
         header("Location: index.php");
     }
-
     exit;
 }
 
 $error = "";
 
+/* =========================
+   XỬ LÝ LOGIN
+========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
     if (empty($username) || empty($password)) {
-
         $error = "Vui lòng nhập đầy đủ thông tin.";
+    }
 
-    } else {
+    else {
 
-        $sql = "SELECT * FROM users WHERE username = ?";
-        $stmt = $db->prepare($sql);
+        $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
 
@@ -42,35 +41,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (password_verify($password, $user['password'])) {
 
-                // Lưu thông tin đăng nhập
-                $_SESSION['user_id'] = $user['id'];
+                /* =========================
+                   SESSION USER
+                ========================== */
+                $_SESSION['user_id']  = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
+                $_SESSION['role']     = $user['role'];
 
-                // Chuyển hướng theo quyền
+                // 🔥 sync avatar + info
+                $_SESSION['avatar']  = $user['avatar'] ?? null;
+                $_SESSION['email']   = $user['email'] ?? null;
+                $_SESSION['phone']   = $user['phone'] ?? null;
+                $_SESSION['address'] = $user['address'] ?? null;
+
+                /* =========================
+                   REDIRECT ROLE
+                ========================== */
                 if ($user['role'] === 'admin') {
-
                     header("Location: admin/dashboard.php");
-
                 } else {
-
                     header("Location: index.php");
-
                 }
 
                 exit;
 
             } else {
-
                 $error = "Sai mật khẩu.";
-
             }
 
         } else {
-
             $error = "Tên đăng nhập không tồn tại.";
-
         }
 
         $stmt->close();
