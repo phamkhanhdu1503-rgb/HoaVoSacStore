@@ -1,0 +1,129 @@
+body {
+    background: #fff8f9;
+    /* Nền trắng hồng nhẹ nhàng đồng bộ Dashboard */
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Thẻ Card lớn bọc ngoài bảng dữ liệu */
+.table-card {
+    border: none;
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 25px rgba(255, 179, 193, 0.05);
+    padding: 24px;
+    overflow: hidden;
+}
+
+/* Tinh chỉnh bảng Table phẳng, bo góc mềm mại */
+.table-custom {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: none;
+}
+
+.table-custom thead th {
+    background-color: #ffccd5 !important;
+    /* Đầu bảng màu hồng pastel sữa */
+    color: #8a3a4b !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 14px 16px;
+    border: none;
+}
+
+.table-custom tbody td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    color: #495057;
+    font-size: 14px;
+    border-bottom: 1px solid #f8e9ec;
+    border-top: none;
+}
+
+.table-custom tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-custom tbody tr:hover td {
+    background-color: #fff0f2 !important;
+    /* Hiệu ứng hover dòng nhẹ nhàng */
+}
+
+/* Bo góc cho phần đầu và cuối bảng */
+.table-custom thead tr th:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.table-custom thead tr th:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Kiểu dáng các nút chức năng viên thuốc */
+.btn-add-brand {
+    background-color: #ff758f;
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 24px;
+    box-shadow: 0 4px 12px rgba(255, 117, 143, 0.2);
+    transition: all 0.25s ease;
+}
+
+.btn-add-brand:hover {
+    background-color: #ff4d6d;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(255, 117, 143, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-action-edit {
+    background-color: #ffe5ec;
+    color: #ff4d6d;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.btn-action-edit:hover {
+    background-color: #ff4d6d;
+    color: #ffffff;
+}
+
+.btn-action-delete {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.btn-action-delete:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+/* Định dạng hiển thị nhãn số lượng / giá tiền */
+.badge-category {
+    background-color: #f0f3f6;
+    color: #495057;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+}
+
+.price-text {
+    font-weight: 700;
+    color: #8a3a4b;
+}
