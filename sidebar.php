@@ -3,7 +3,7 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
-<link rel="stylesheet" href="../style/sidebar.css">
+<link rel="stylesheet" href="/HoaVoSacStore/style/sidebar.css">
 
 <div class="admin-sidebar">
     <div>
