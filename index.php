@@ -2,6 +2,7 @@
 session_start();
 
 require 'config/database.php';
+
 // ============================
 // TÍNH TỔNG SỐ LƯỢNG GIỎ HÀNG TỪ DATABASE
 // ============================
@@ -78,7 +79,7 @@ $result_best_seller = mysqli_query(
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="style/footer.css">
   <style>
     /* ===== FONT ===== */
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
@@ -169,40 +170,6 @@ $result_best_seller = mysqli_query(
       color: #c0405a;
     }
 
-    /* ===== SEARCH ===== */
-    .search-wrap {
-      position: relative;
-    }
-
-    .search-wrap input {
-      border: 1.5px solid #fbd0dd;
-      border-radius: 20px;
-      padding: 6px 36px 6px 14px;
-      font-size: 0.82rem;
-      width: 180px;
-      background: #fff9fb;
-      color: #4a3040;
-      transition: border-color 0.18s, width 0.25s;
-      outline: none;
-    }
-
-    .search-wrap input:focus {
-      border-color: #e8748a;
-      width: 220px;
-      background: #fff;
-    }
-
-    .search-wrap .search-btn {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: none;
-      color: #e8748a;
-      font-size: 1rem;
-      cursor: pointer;
-    }
 
     /* ===== ICON ACTIONS ===== */
     .nav-icon-btn {
@@ -256,133 +223,24 @@ $result_best_seller = mysqli_query(
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c0405a' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
 
-    /* ===================================================
-       ===== BANNER ĐÃ ĐƯỢC CHỈNH THU NHỎ GỌN GÀNG =====
-       =================================================== */
-    .hero-banner {
-      background: linear-gradient(135deg, #fff5f7 0%, #fde8ef 100%);
-      padding: 35px 0;
-      margin-bottom: 25px;
-      overflow: hidden;
-    }
+    
+    /* ===== BANNER INTERFACE ===== */
 
-    .hero-title {
+    .carousel-banner-title {
       font-size: 2.2rem;
       font-weight: 700;
       color: #4a3040;
       line-height: 1.25;
     }
 
-    .hero-title span {
-      color: #c0405a;
-    }
-
-    .hero-subtitle {
+    .carousel-banner-sub {
       font-size: 0.95rem;
       color: #6c757d;
       margin: 12px 0 20px 0;
       line-height: 1.5;
     }
 
-    .btn-hero {
-      background: #a81c39;
-      color: #fff;
-      font-weight: 600;
-      padding: 10px 24px;
-      font-size: 0.88rem;
-      border-radius: 30px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(168, 28, 57, 0.15);
-      transition: all 0.3s ease;
-    }
-
-    .btn-hero:hover {
-      background: #c0405a;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(168, 28, 57, 0.25);
-    }
-
-    .hero-img-wrapper {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hero-img-wrapper::before {
-      content: '';
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      background: rgba(255, 255, 255, 0.55);
-      border-radius: 50%;
-      z-index: 1;
-    }
-
-    .hero-img {
-      max-height: 280px;
-      width: auto;
-      object-fit: contain;
-      position: relative;
-      z-index: 2;
-      animation: floatEffect 4s ease-in-out infinite;
-    }
-
-    @keyframes floatEffect {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    /* ===== HỘP ĐỀ XUẤT TÌM KIẾM ===== */
-    .search-wrap {
-      position: relative;
-    }
-
-    .search-suggestions-box {
-      position: absolute;
-      top: 110%;
-      left: 0;
-      width: 100%;
-      background: #ffffff;
-      border: 1px solid #fde8ef;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(192, 64, 90, 0.1);
-      max-height: 250px;
-      overflow-y: auto;
-      z-index: 1100;
-    }
-
-    .suggestion-item {
-      padding: 10px 14px;
-      font-size: 0.85rem;
-      color: #4a3040;
-      cursor: pointer;
-      transition: background 0.15s;
-      border-bottom: 1px solid #fff5f7;
-      display: block;
-      text-decoration: none;
-    }
-
-    .suggestion-item:last-child {
-      border-bottom: none;
-    }
-
-    .suggestion-item:hover {
-      background: #fde8ef;
-      color: #c0405a;
-    }
-
+    
     /* ===================================================
        ===== STYLE PRODUCT CARD MỚI (VƯỜN HOA TƯƠI) =====
        =================================================== */
@@ -593,7 +451,230 @@ $result_best_seller = mysqli_query(
       .hero-img-wrapper {
         margin-top: 20px;
       }
+
+  /* Search đẹp mắt*/
+  .search-suggestions-box{
+    position:absolute;
+    top:110%;
+    left:0;
+    width:100%;
+    background:#fff;
+    border:1px solid #f3d7df;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    z-index:9999;
+}
+
+.suggestion-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:10px 12px;
+
+    text-decoration:none;
+    color:#333;
+
+    transition:.2s;
+
+    border-bottom:1px solid #f5f5f5;
+}
+
+.suggestion-item:last-child{
+    border-bottom:none;
+}
+
+.suggestion-item:hover{
+    background:#fff3f7;
+}
+
+.suggestion-img{
+    width:55px;
+    height:55px;
+
+    border-radius:10px;
+
+    object-fit:cover;
+
+    border:1px solid #eee;
+
+    flex-shrink:0;
+}
+
+.suggestion-info{
+    flex:1;
+}
+
+.suggestion-name{
+    font-size:15px;
+    font-weight:600;
+    color:#333;
+    margin-bottom:4px;
+}
+
+.suggestion-price{
+    color:#d63384;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.suggestion-item-empty{
+    padding:15px;
+    text-align:center;
+    color:#888;
+    font-size:14px;
+}
     }
+
+    /* ===== SEARCH ===== */
+
+.search-wrap {
+    position: relative;
+}
+
+.search-wrap input {
+    border: 1.5px solid #fbd0dd;
+    border-radius: 20px;
+    padding: 6px 36px 6px 14px;
+    font-size: 0.82rem;
+    width: 180px;
+    background: #fff9fb;
+    color: #4a3040;
+    transition: all .2s ease;
+    outline: none;
+}
+
+.search-wrap input:focus {
+    border-color: #e8748a;
+    width: 220px;
+    background: #fff;
+}
+
+.search-wrap .search-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #e8748a;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ===== HỘP GỢI Ý ===== */
+
+.search-suggestions-box {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #fde8ef;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(192,64,90,.12);
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+/* ===== ITEM ===== */
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px 14px;
+
+    text-decoration: none;
+    color: #333;
+
+    transition: .2s;
+
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background: #fff3f6;
+}
+
+/* ===== ẢNH ===== */
+
+.suggestion-item .suggestion-img {
+    width: 60px !important;
+    height: 60px !important;
+
+    min-width: 60px;
+    min-height: 60px;
+
+    max-width: 60px;
+    max-height: 60px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+    border: 1px solid #eee;
+
+    display: block;
+
+    flex-shrink: 0;
+}
+
+/* ===== THÔNG TIN ===== */
+
+.suggestion-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.suggestion-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestion-price {
+    margin-top: 5px;
+    color: #d63384;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* ===== KHÔNG CÓ KẾT QUẢ ===== */
+
+.suggestion-item-empty {
+    padding: 15px;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+}
+/*logo*/
+.logo-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.shop-name{
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #4a3040;
+}
+html {
+    scroll-behavior: smooth;
+}
   </style>
 </head>
 
@@ -601,10 +682,10 @@ $result_best_seller = mysqli_query(
 
   <nav class="navbar navbar-hoa navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center navbar-brand-hoa" href="index.html">
-        <i class="bi bi-flower1 logo-icon"></i>
-        <span>Hoa Vô Sắc</span>
-      </a>
+      <a class="navbar-brand d-flex align-items-center navbar-brand-hoa" href="index.php">
+    <img src="logo/logo.png" alt="Hoa Vô Sắc" class="logo-img">
+    <span class="shop-name ms-2">𝓗𝓸𝓪 𝓥𝓸 𝓢𝓪𝓬</span>
+</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
         <span class="navbar-toggler-icon"></span>
@@ -629,32 +710,12 @@ $result_best_seller = mysqli_query(
             </ul>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-gift"></i> Hoa theo
-              dịp</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#"><i class="bi bi-balloon-heart"></i> Sinh nhật</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-heart"></i> Tình yêu</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-shop"></i> Khai trương</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-trophy"></i> Chúc mừng</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-cloud-drizzle"></i> Chia buồn</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-event"></i> Ngày lễ</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="bi bi-basket2"></i> Kiểu
-              cắm hoa</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#"><i class="bi bi-bag-heart"></i> Bó hoa</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-basket"></i> Giỏ hoa</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-lamp"></i> Lẵng hoa</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-box2-heart"></i> Hộp hoa</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-newspaper"></i> Tin tức</a></li>
-          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-telephone"></i> Liên hệ</a></li>
+          
+          <li class="nav-item">
+    <a class="nav-link" href="#contact">
+        <i class="bi bi-telephone"></i> Liên hệ
+    </a>
+</li>
         </ul>
 
         <form action="search_results.php" method="GET" class="search-wrap" id="searchForm" autocomplete="off">
@@ -704,29 +765,52 @@ $result_best_seller = mysqli_query(
     </div>
   </nav>
 
-  <section class="hero-banner">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-7">
-          <h1 class="hero-title">
-            Gửi Gắm Yêu Thương<br>
-            Qua Từng <span>Bó Hoa Tươi</span>
+  <div id="mainBannerCarousel" class="carousel slide" data-bs-ride="carousel" style="background-color: #FCE7F3;">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="0" class="active"></button>
+      <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="1"></button>
+    </div>
+
+    <div class="carousel-inner text-center">
+
+      <div class="carousel-item active py-5" data-bs-interval="4000">
+        <div class="py-5">
+          <h1 class="carousel-banner-title">
+            Nơi Cảm Xúc Nở Hoa
           </h1>
-          <p class="hero-subtitle">
-            Khám phá những mẫu hoa thiết kế cao cấp, tinh tế và ngọt ngào dành riêng cho những dịp đặc biệt của bạn.
-            Trải nghiệm dịch vụ chu đáo và uy tín hàng đầu!
+
+          <p class="carousel-banner-sub">
+            Mỗi Bó Hoa – Một Câu Chuyện Yêu Thương 💐
           </p>
-          <a href="#san-pham-moi" class="btn-hero">
-            Mua sắm ngay <i class="bi bi-arrow-right-short fs-5"></i>
-          </a>
-        </div>
-        <div class="col-lg-5 hero-img-wrapper">
-          <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=600&auto=format&fit=crop"
-            class="hero-img" alt="Bó hoa ngọt ngào">
         </div>
       </div>
+
+      <div class="carousel-item py-5" data-bs-interval="4000">
+        <div class="py-5">
+          <h1 class="carousel-banner-title">
+            Hoa Thay Lời Yêu
+          </h1>
+
+          <p class="carousel-banner-sub">
+            Trao nhau một đóa hoa, gửi nhau ngàn lời thương 🎀
+          </p>
+        </div>
+      </div>
+
     </div>
-  </section>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainBannerCarousel" data-bs-slide="prev">
+
+      <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#mainBannerCarousel" data-bs-slide="next">
+
+      <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+
+    </button>
+  </div>
 
   <div class="container py-4" id="san-pham-moi">
     <h3 class="mb-4 fw-bold">✨ Sản phẩm mới nhất</h3>
@@ -839,6 +923,106 @@ $result_best_seller = mysqli_query(
       <?php } ?>
     </div>
   </div>
+  
+  <div id="tu-van-hoa" class="container my-5 py-5 bg-light rounded-4 shadow-sm">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0 bg-light p-4 p-md-5 rounded-4">
+
+                <div class="text-center mb-4">
+                    <h2 class="text-center fw-bold mb-4" style="color:#a50920;">
+                        Đăng Ký Nhận Tư Vấn Hoa
+                    </h2>
+                </div>
+
+                <form id="tuVanForm"
+                      action="submit_consult.php"
+                      method="POST"
+                      onsubmit="return validateForm(event)"
+                      novalidate>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label small fw-bold text-secondary">
+                                Họ và Tên
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control py-2"
+                                id="txtHoTen"
+                                name="txtHoTen"
+                                placeholder="Ví dụ: Nguyễn Văn A">
+
+                            <div
+                                id="errorHoTen"
+                                class="text-danger small mt-1"
+                                style="display:none;font-weight:500;">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label small fw-bold text-secondary">
+                                Số Điện Thoại
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control py-2"
+                                id="txtDienThoai"
+                                name="txtDienThoai"
+                                placeholder="Ví dụ: 0912345678">
+
+                            <div
+                                id="errorDienThoai"
+                                class="text-danger small mt-1"
+                                style="display:none;font-weight:500;">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+
+                        <button
+                            type="reset"
+                            class="btn btn-outline-secondary px-4 rounded-pill"
+                            onclick="clearErrors()">
+
+                            Nhập Lại
+
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger px-4 rounded-pill shadow-sm"
+                            style="background:#a50920;border:none;">
+
+                            Gửi Yêu Cầu
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+  <?php include 'footer.php'; ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -941,7 +1125,56 @@ $result_best_seller = mysqli_query(
         }
       });
     });
+
+    //=================================//
+    var myCarouselEl = document.querySelector('#mainBannerCarousel');
+
+    if (myCarouselEl) {
+      new bootstrap.Carousel(myCarouselEl, {
+        interval: 4000,
+        ride: 'carousel',
+        wrap: true
+      });
+    }
+
+    
+function clearErrors() {
+    document.getElementById("errorHoTen").style.display = "none";
+    document.getElementById("errorDienThoai").style.display = "none";
+}
+
+function validateForm(event) {
+
+    event.preventDefault();
+
+    clearErrors();
+
+    let isValid = true;
+
+    const hoTen = document.getElementById("txtHoTen").value.trim();
+    const dienThoai = document.getElementById("txtDienThoai").value.trim();
+
+    if (hoTen === "") {
+        document.getElementById("errorHoTen").innerHTML = "Vui lòng nhập họ và tên.";
+        document.getElementById("errorHoTen").style.display = "block";
+        isValid = false;
+    }
+
+    if (!/^[0-9]{10,11}$/.test(dienThoai)) {
+        document.getElementById("errorDienThoai").innerHTML = "Số điện thoại không hợp lệ.";
+        document.getElementById("errorDienThoai").style.display = "block";
+        isValid = false;
+    }
+
+    if (isValid) {
+        document.getElementById("tuVanForm").submit();
+    }
+
+    return false;
+}
+
   </script>
+
 </body>
 
 </html>

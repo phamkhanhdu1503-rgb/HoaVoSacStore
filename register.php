@@ -1,8 +1,7 @@
 <?php
-session_start();
 require 'config/guest.php';
 // Kết nối database
-require '../config/database.php'; // Nếu chưa dùng database.php thì thay bằng new mysqli như cũ
+require 'config/database.php'; // Nếu chưa dùng database.php thì thay bằng new mysqli như cũ
 
 // Nếu đã đăng nhập thì chuyển về trang chủ
 if (isset($_SESSION['user_id'])) {
@@ -96,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style/register.css">
+    <link rel="stylesheet" href="style/register.css">
 
 
 </head>
@@ -111,13 +110,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body p-4 p-md-5">
 
                         <div class="text-center mb-4">
-                            <div class="flower-icon mb-2">
-                                <i class="bi bi-flower3"></i>
-                            </div>
-                            <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">Đăng Ký Tài Khoản</h3>
-                            <p class="text-muted small m-0 mt-1">Trở thành thành viên để nhận nhiều ưu đãi từ Hoa Vô Sắc
-                            </p>
-                        </div>
+
+    <img src="logo/logo.png"
+         alt="Logo"
+         style="width: 90px; height: auto; margin-bottom: 10px;">
+
+    <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">
+        Đăng Ký Tài Khoản
+    </h3>
+
+    <p class="text-muted small m-0 mt-1">
+        Trở thành thành viên để nhận nhiều ưu đãi từ Hoa Vô Sắc
+    </p>
+</div>
 
                         <form action="process_register.php" method="POST">
 

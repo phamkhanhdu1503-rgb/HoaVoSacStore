@@ -103,12 +103,19 @@ $db->close();
                     <div class="card-body p-4 p-md-5">
 
                         <div class="text-center mb-4">
-                            <div class="flower-icon mb-2">
-                                <i class="bi bi-flower1"></i>
-                            </div>
-                            <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">Đăng Nhập Hệ Thống</h3>
-                            <p class="text-muted small m-0 mt-1">Chào mừng bạn đến với không gian của Hoa Vô Sắc</p>
-                        </div>
+
+    <img src="logo/logo.png"
+         alt="Logo"
+         style="width: 90px; height: auto; margin-bottom: 10px;">
+
+    <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">
+        Đăng Nhập
+    </h3>
+
+    <p class="text-muted small m-0 mt-1">
+        Chào mừng bạn đến với không gian của Hoa Vô Sắc
+    </p>
+</div>
 
                         <?php if (!empty($error)): ?>
                             <div class="alert alert-danger">
