@@ -22,23 +22,23 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </a>
             
             <a class="sidebar-link <?= ($current_page == 'category.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/category.php">
-    <i class="bi bi-folder-fill"></i> Danh Mục Phân Loại
-</a>
+                <i class="bi bi-folder-fill"></i> Danh Mục Phân Loại
+            </a>
             
             <a class="sidebar-link <?= ($current_page == 'orders.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/orders.php">
                 <i class="bi bi-receipt"></i> Quản Lý Đơn Hàng
             </a>
-            
-            <a class="sidebar-link <?= ($current_page == 'order_detail.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/order_detail.php">
-                <i class="bi bi-file-earmark-text-fill"></i> Chi Tiết Đơn Hàng
+
+            <a class="sidebar-link <?= ($current_page == 'login_history.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/login_history.php">
+                <i class="bi bi-clock-history"></i> Lịch Sử Đăng Nhập
             </a>
-            
-            <a class="sidebar-link <?= ($current_page == 'cart.php') ? 'active' : '' ?>" href="/HoaVoSacStore/carts/cart.php">
-                <i class="bi bi-cart-fill"></i> Xem Giỏ Hàng
+
+            <a class="sidebar-link <?= ($current_page == 'revenue_chart.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/revenue_chart.php">
+                <i class="bi bi-bar-chart-line-fill"></i> Biểu Đồ Doanh Thu
             </a>
-            
-            <a class="sidebar-link <?= ($current_page == 'checkout.php') ? 'active' : '' ?>" href="/HoaVoSacStore/carts/checkout.php">
-                <i class="bi bi-credit-card-fill"></i> Thanh Toán Giao Dịch
+
+            <a class="sidebar-link <?= ($current_page == 'transaction_history.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/transaction_history.php">
+                <i class="bi bi-credit-card-2-front-fill"></i> Lịch Sử Giao Dịch
             </a>
         </div>
     </div>

@@ -1,0 +1,47 @@
+/* --- STYLE RIÊNG CHO TRANG LỊCH SỬ ĐĂNG NHẬP (TONG HỒNG PHẤN) --- */
+
+.table-custom {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(255, 179, 193, 0.05);
+    border: none;
+}
+
+.table-custom th {
+    background-color: #ffccd5 !important;
+    color: #8a3a4b !important;
+    font-weight: 600;
+    border: none;
+    padding: 15px;
+}
+
+.table-custom td {
+    padding: 15px;
+    vertical-align: middle;
+    color: #4a4a4a;
+    border-bottom: 1px solid #fff0f2;
+}
+
+/* Các nhãn phân biệt quyền Admin và User */
+.badge-admin {
+    background-color: #8a3a4b;
+    color: white;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 11px;
+}
+
+.badge-user {
+    background-color: #ff758f;
+    color: white;
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 11px;
+}
+
+/* Trạng thái đăng nhập thành công */
+.status-success {
+    color: #2ec4b6;
+    font-weight: 600;
+}

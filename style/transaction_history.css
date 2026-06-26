@@ -1,0 +1,47 @@
+/* --- STYLE RIÊNG CHO TRANG LỊCH SỬ GIAO DỊCH --- */
+
+.table-custom {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(255, 179, 193, 0.05);
+    border: none;
+}
+
+.table-custom th {
+    background-color: #ffccd5 !important;
+    color: #8a3a4b !important;
+    font-weight: 600;
+    border: none;
+    padding: 15px;
+}
+
+.table-custom td {
+    padding: 15px;
+    vertical-align: middle;
+    color: #4a4a4a;
+    border-bottom: 1px solid #fff0f2;
+}
+
+/* Các trạng thái giao dịch */
+.badge-status {
+    border-radius: 50px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-completed {
+    background-color: #e2f9f3;
+    color: #2ec4b6;
+}
+
+.status-pending {
+    background-color: #fff4e6;
+    color: #ff9f43;
+}
+
+.status-failed {
+    background-color: #ffe5e5;
+    color: #ff4d4d;
+}

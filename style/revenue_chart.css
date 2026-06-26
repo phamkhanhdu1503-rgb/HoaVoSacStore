@@ -1,0 +1,96 @@
+/* --- STYLE RIÊNG CHO TRANG BIỂU ĐỒ DOANH THU --- */
+
+body {
+    background: #fff8f9; /* Giữ nền trắng hồng đồng bộ */
+}
+
+/* Thẻ bọc ngoài biểu đồ và các bộ lọc */
+.chart-container-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(255, 179, 193, 0.05);
+    border: none;
+    margin-bottom: 30px;
+}
+
+/* Tiêu đề vùng biểu đồ */
+.chart-title {
+    color: #8a3a4b;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* Khung bọc lưới tóm tắt số liệu nhanh bên trên biểu đồ */
+.stat-mini-box {
+    background: #fff0f2;
+    border-radius: 14px;
+    padding: 15px 20px;
+    border: 1px solid #ffccd5;
+}
+
+.stat-mini-box .title {
+    color: #5c4d50;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stat-mini-box .value {
+    color: #8a3a4b;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Tùy chỉnh các ô chọn bộ lọc ngày tháng năm */
+.filter-select {
+    border: 1px solid #ffccd5;
+    border-radius: 50px;
+    padding: 8px 20px;
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 14px;
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* Tùy chỉnh các ô chọn bộ lọc ngày tháng năm */
+.filter-select {
+    border: 1px solid #ffccd5;
+    border-radius: 50px;
+    padding: 8px 35px 8px 20px; /* Tăng padding-right lên 35px để đẩy chữ ra xa khỏi mũi tên */
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 14px;
+    outline: none;
+    background-color: #ffffff;
+    
+    /* Các thuộc tính xử lý mũi tên của Bootstrap tránh bị lỗi dính chữ */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%238a3a4b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px vertical;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    border-color: #ff758f;
+    box-shadow: 0 0 0 0.25rem rgba(255, 117, 143, 0.25);
+}
+
+.btn-filter {
+    background-color: #ff758f;
+    color: white;
+    border-radius: 50px;
+    padding: 8px 25px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.25s;
+}
+
+.btn-filter:hover {
+    background-color: #8a3a4b;
+    color: white;
+}

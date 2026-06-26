@@ -40,13 +40,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $user = $result->fetch_assoc();
 
-            if (password_verify($password, $user['password'])) {
+            if ($password === $user['password'] || password_verify($password, $user['password'])) {
 
                 // Lưu thông tin đăng nhập
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
+                // --- ĐOẠN CODE BACKEND: GHI NHẬT KÝ ĐĂNG NHẬP ---
+$ip_address = $_SERVER['REMOTE_ADDR']; // Lấy địa chỉ IP máy truy cập
+$log_sql = "INSERT INTO login_log (username, fullname, role, ip_address) VALUES (?, ?, ?, ?)";
+$log_stmt = $db->prepare($log_sql);
+$log_stmt->bind_param("ssss", $user['username'], $user['fullname'], $user['role'], $ip_address);
+$log_stmt->execute();
+$log_stmt->close();
+// --- HẾT ĐOẠN CODE GHI NHẬT KÝ ---
+                
+                
 
                 // Chuyển hướng theo quyền
                 if ($user['role'] === 'admin') {
