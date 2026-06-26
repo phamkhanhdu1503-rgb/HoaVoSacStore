@@ -5,9 +5,9 @@ require '../config/flash.php';
 
 $user_id = $_SESSION['user_id'];
 
-// ============================
-// LẤY GIỎ HÀNG
-// ============================
+/* =========================
+   LẤY GIỎ HÀNG
+========================= */
 $sql = "
 SELECT
     c.product_id,
@@ -15,8 +15,7 @@ SELECT
     p.price,
     p.stock
 FROM carts c
-JOIN products p
-ON c.product_id = p.id
+JOIN products p ON c.product_id = p.id
 WHERE c.user_id = ?
 ";
 
@@ -26,13 +25,8 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 
-if ($result->num_rows == 0) {
-
-    setFlash(
-        "warning",
-        "Giỏ hàng của bạn đang trống!"
-    );
-
+if ($result->num_rows === 0) {
+    setFlash("warning", "Giỏ hàng trống!");
     header("Location: ../cart.php");
     exit;
 }
@@ -40,16 +34,13 @@ if ($result->num_rows == 0) {
 $total = 0;
 $items = [];
 
+/* =========================
+   CHECK STOCK + TÍNH TIỀN
+========================= */
 while ($row = $result->fetch_assoc()) {
 
-    // Kiểm tra tồn kho trước
     if ($row['quantity'] > $row['stock']) {
-
-        setFlash(
-            "warning",
-            "Một hoặc nhiều sản phẩm trong giỏ hàng không đủ số lượng."
-        );
-
+        setFlash("warning", "Sản phẩm không đủ tồn kho!");
         header("Location: ../cart.php");
         exit;
     }
@@ -58,116 +49,91 @@ while ($row = $result->fetch_assoc()) {
     $items[] = $row;
 }
 
-// ============================
-// BẮT ĐẦU TRANSACTION
-// ============================
-$db->begin_transaction();
+/* =========================
+   XỬ LÝ ORDER
+========================= */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-try {
+    $payment_method = $_POST['payment_method'] ?? 'COD';
 
-    // ============================
-    // TẠO ORDER
-    // ============================
-    $insertOrder = $db->prepare("
-        INSERT INTO orders (user_id, total, status)
-        VALUES (?, ?, 'Chờ xác nhận')
-    ");
+    $db->begin_transaction();
 
-    $insertOrder->bind_param(
-        "id",
-        $user_id,
-        $total
-    );
+    try {
 
-    $insertOrder->execute();
-
-    $order_id = $db->insert_id;
-
-    // ============================
-    // ORDER DETAILS
-    // ============================
-    foreach ($items as $item) {
-
-        // Thêm chi tiết đơn hàng
-        $insertDetail = $db->prepare("
-            INSERT INTO order_details
-            (order_id, product_id, quantity, price)
-            VALUES (?, ?, ?, ?)
+        /* =====================
+           CREATE ORDER
+        ===================== */
+        $order = $db->prepare("
+            INSERT INTO orders (user_id, total, status, payment_method)
+            VALUES (?, ?, 'Chờ xác nhận', ?)
         ");
 
-        $insertDetail->bind_param(
-            "iiid",
-            $order_id,
-            $item['product_id'],
-            $item['quantity'],
-            $item['price']
-        );
+        $order->bind_param("ids", $user_id, $total, $payment_method);
+        $order->execute();
 
-        $insertDetail->execute();
+        $order_id = $db->insert_id;
 
-        // Cập nhật số lượng bán
-        $updateSold = $db->prepare("
-            UPDATE products
-            SET sold = sold + ?
-            WHERE id = ?
-        ");
+        /* =====================
+           ORDER DETAILS
+        ===================== */
+        foreach ($items as $item) {
 
-        $updateSold->bind_param(
-            "ii",
-            $item['quantity'],
-            $item['product_id']
-        );
+            $detail = $db->prepare("
+                INSERT INTO order_details
+                (order_id, product_id, quantity, price)
+                VALUES (?, ?, ?, ?)
+            ");
 
-        $updateSold->execute();
+            $detail->bind_param(
+                "iiid",
+                $order_id,
+                $item['product_id'],
+                $item['quantity'],
+                $item['price']
+            );
 
-        // Trừ tồn kho
-        $updateStock = $db->prepare("
-            UPDATE products
-            SET stock = stock - ?
-            WHERE id = ?
-        ");
+            $detail->execute();
 
-        $updateStock->bind_param(
-            "ii",
-            $item['quantity'],
-            $item['product_id']
-        );
+            /* SOLD */
+            $sold = $db->prepare("
+                UPDATE products
+                SET sold = sold + ?
+                WHERE id = ?
+            ");
 
-        $updateStock->execute();
+            $sold->bind_param("ii", $item['quantity'], $item['product_id']);
+            $sold->execute();
+
+            /* STOCK */
+            $stock = $db->prepare("
+                UPDATE products
+                SET stock = stock - ?
+                WHERE id = ?
+            ");
+
+            $stock->bind_param("ii", $item['quantity'], $item['product_id']);
+            $stock->execute();
+        }
+
+        /* =====================
+           CLEAR CART
+        ===================== */
+        $clear = $db->prepare("DELETE FROM carts WHERE user_id = ?");
+        $clear->bind_param("i", $user_id);
+        $clear->execute();
+
+        $db->commit();
+
+        header("Location: ../success.php?order_id=" . $order_id);
+        exit;
+
+    } catch (Exception $e) {
+
+        $db->rollback();
+
+        setFlash("danger", "Đặt hàng thất bại!");
+        header("Location: ../cart.php");
+        exit;
     }
-
-    // ============================
-    // XÓA GIỎ HÀNG
-    // ============================
-    $deleteCart = $db->prepare("
-        DELETE FROM carts
-        WHERE user_id = ?
-    ");
-
-    $deleteCart->bind_param(
-        "i",
-        $user_id
-    );
-
-    $deleteCart->execute();
-
-    // ============================
-    // LƯU DATABASE
-    // ============================
-    $db->commit();
-
-    header("Location: ../success.php?order_id=" . $order_id);
-    exit;
-
-} catch (Exception $e) {
-
-    $db->rollback();
-
-    setFlash(
-        "danger",
-        "Đặt hàng thất bại! Vui lòng thử lại."
-    );
-
-    header("Location: ../cart.php");
-    exit;
 }
+?>

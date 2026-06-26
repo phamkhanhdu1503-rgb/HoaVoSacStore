@@ -4,19 +4,25 @@ session_start();
 require 'config/database.php';
 
 // ============================
-// TÍNH TỔNG SỐ LƯỢNG GIỎ HÀNG TỪ DATABASE
+// TÍNH TỔNG GIỎ HÀNG
 // ============================
-$user_id = 1; // ⚠ Tạm thời set bằng 1 cho khớp với file add_to_cart của bạn
+
+$user_id = $_SESSION['user_id'] ?? 0;
 $total_quantity = 0;
 
-$cart_count_query = $db->prepare("SELECT SUM(quantity) AS total FROM carts WHERE user_id = ?");
-$cart_count_query->bind_param("i", $user_id);
-$cart_count_query->execute();
-$cart_count_result = $cart_count_query->get_result();
+if ($user_id > 0) {
 
-if ($cart_row = $cart_count_result->fetch_assoc()) {
-  // Nếu tổng khác null thì gán vào biến, ngược lại (giỏ trống) thì gán bằng 0
-  $total_quantity = $cart_row['total'] ?? 0;
+    $cart_count_query = $db->prepare("
+        SELECT COALESCE(SUM(quantity),0) AS total
+        FROM carts
+        WHERE user_id = ?
+    ");
+
+    $cart_count_query->bind_param("i", $user_id);
+    $cart_count_query->execute();
+
+    $cart_count_result = $cart_count_query->get_result();
+    $total_quantity = $cart_count_result->fetch_assoc()['total'];
 }
 // ============================
 // DANH MỤC
