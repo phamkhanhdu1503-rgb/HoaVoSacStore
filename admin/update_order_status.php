@@ -1,6 +1,6 @@
 <?php
 require '../config/database.php';
-
+require '../config/admin_auth.php';
 if (
     !isset($_GET['id']) ||
     !isset($_GET['status'])

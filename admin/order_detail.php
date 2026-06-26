@@ -1,5 +1,5 @@
 <?php
-
+require '../config/admin_auth.php';
 // Kết nối đatabase 
 require '../config/database.php';
 

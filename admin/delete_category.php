@@ -1,4 +1,5 @@
 <?php
+require '../config/admin_auth.php';
 // Kết nối cơ sở dữ liệu
 require '../config/database.php';
 

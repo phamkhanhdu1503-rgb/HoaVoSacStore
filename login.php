@@ -1,12 +1,18 @@
 <?php
 session_start();
-
+require 'config/guest.php';
 // Kết nối database
-require '../config/database.php'; // Nếu chưa có thì thay bằng new mysqli như cũ
+require 'config/database.php';
 
-// Nếu đã đăng nhập thì chuyển về trang chủ
+// Nếu đã đăng nhập thì chuyển hướng theo quyền
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: admin/dashboard.php");
+    } else {
+        header("Location: index.php");
+    }
+
     exit;
 }
 
@@ -17,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Kiểm tra dữ liệu
     if (empty($username) || empty($password)) {
 
         $error = "Vui lòng nhập đầy đủ thông tin.";
@@ -26,26 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $db->prepare($sql);
-
         $stmt->bind_param("s", $username);
         $stmt->execute();
 
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows === 1) {
 
             $user = $result->fetch_assoc();
 
             if (password_verify($password, $user['password'])) {
 
+                // Lưu thông tin đăng nhập
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
 
-                // Nếu có cột role thì mở dòng dưới
-                // $_SESSION['role'] = $user['role'];
+                // Chuyển hướng theo quyền
+                if ($user['role'] === 'admin') {
 
-                header("Location: index.php");
+                    header("Location: admin/dashboard.php");
+
+                } else {
+
+                    header("Location: index.php");
+
+                }
+
                 exit;
 
             } else {
@@ -63,6 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 }
+
+$db->close();
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -74,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style/login.css">
+    <link rel="stylesheet" href="style/login.css">
 
 </head>
 
@@ -95,7 +110,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <p class="text-muted small m-0 mt-1">Chào mừng bạn đến với không gian của Hoa Vô Sắc</p>
                         </div>
 
-                        <form action="process_login.php" method="POST">
+                        <?php if (!empty($error)): ?>
+                            <div class="alert alert-danger">
+                                <?= htmlspecialchars($error) ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['success'])): ?>
+                            <div class="alert alert-success">
+                                <?= htmlspecialchars($_SESSION['success']) ?>
+                            </div>
+                            <?php unset($_SESSION['success']); ?>
+                        <?php endif; ?>
+
+                        <form method="POST">
 
                             <div class="mb-3">
                                 <label class="form-label">Tên đăng nhập</label>

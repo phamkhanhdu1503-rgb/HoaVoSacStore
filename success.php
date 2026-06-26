@@ -1,27 +1,59 @@
 <?php
-session_start();
-require "config/database.php";
+require 'config/auth.php';
+require 'config/database.php';
 
-// Lấy order_id từ URL
-$order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
+$user_id = $_SESSION['user_id'];
+
+// ============================
+// LẤY ORDER ID
+// ============================
+$order_id = isset($_GET['order_id'])
+    ? (int)$_GET['order_id']
+    : 0;
 
 if ($order_id <= 0) {
-    die("Đơn hàng không hợp lệ.");
+
+    $_SESSION['error'] = "Đơn hàng không hợp lệ.";
+
+    header("Location: my_orders.php");
+    exit;
 }
 
-// Lấy thông tin đơn hàng
-$sql = "SELECT * FROM orders WHERE id = ?";
+// ============================
+// LẤY THÔNG TIN ĐƠN HÀNG
+// CHỈ CHO PHÉP XEM ĐƠN CỦA CHÍNH MÌNH
+// ============================
+$sql = "
+SELECT *
+FROM orders
+WHERE id = ?
+AND user_id = ?
+";
+
 $stmt = $db->prepare($sql);
-$stmt->bind_param("i", $order_id);
+
+$stmt->bind_param(
+    "ii",
+    $order_id,
+    $user_id
+);
+
 $stmt->execute();
 
 $result = $stmt->get_result();
 
-if ($result->num_rows == 0) {
-    die("Không tìm thấy đơn hàng.");
+if ($result->num_rows === 0) {
+
+    $_SESSION['error'] = "Đơn hàng không tồn tại hoặc bạn không có quyền xem.";
+
+    header("Location: my_orders.php");
+    exit;
 }
 
 $order = $result->fetch_assoc();
+
+$stmt->close();
+$db->close();
 ?>
 <!doctype html>
 <html lang="vi">

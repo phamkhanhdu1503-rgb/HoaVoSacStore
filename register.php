@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require 'config/guest.php';
 // Kết nối database
 require '../config/database.php'; // Nếu chưa dùng database.php thì thay bằng new mysqli như cũ
 

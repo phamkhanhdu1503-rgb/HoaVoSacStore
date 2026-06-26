@@ -1,6 +1,6 @@
 <?php
 require '../config/database.php';
-
+require '../config/admin_auth.php';
 // GIỮ NGUYÊN HOÀN TOÀN LOGIC TRUY VẤN VÀ API GỐC CỦA BẠN
 $sql = "
 SELECT

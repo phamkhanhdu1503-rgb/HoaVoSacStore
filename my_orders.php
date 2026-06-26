@@ -1,13 +1,6 @@
 <?php
+require 'config/auth.php';
 require 'config/database.php';
-session_start();
-
-// ============================
-// CHECK LOGIN
-// ============================
-if (!isset($_SESSION['user_id'])) {
-    die("Vui lòng đăng nhập!");
-}
 
 $user_id = $_SESSION['user_id'];
 
@@ -20,19 +13,24 @@ $stmt = $db->prepare("
     WHERE user_id = ?
     ORDER BY id DESC
 ");
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
+
 $orders = $stmt->get_result();
 
 // ============================
-// LẤY SẢN PHẨM ĐỀ XUẤT (Ngẫu nhiên 4 sản phẩm)
+// LẤY SẢN PHẨM ĐỀ XUẤT
 // ============================
 $recommend_stmt = $db->prepare("
-    SELECT * FROM products 
-    ORDER BY RAND() 
+    SELECT *
+    FROM products
+    ORDER BY RAND()
     LIMIT 4
 ");
+
 $recommend_stmt->execute();
+
 $recommended_products = $recommend_stmt->get_result();
 ?>
 
