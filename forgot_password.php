@@ -1,8 +1,8 @@
 <?php
-session_start();
+
 require 'config/guest.php';
 // Kết nối database
-require '../config/database.php'; // Hoặc dùng new mysqli như cũ
+require 'config/database.php'; // Hoặc dùng new mysqli như cũ
 
 $error = "";
 $success = "";
@@ -71,37 +71,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Quên mật khẩu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/forgot_password.css">    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-5">
+            <div class="col-sm-10 col-md-7 col-lg-5">
 
-                <div class="card shadow">
-                    <div class="card-body">
+                <div class="card shadow-lg login-card">
+                    <div class="card-body p-4 p-md-5">
 
-                        <h3 class="text-center mb-4">Quên mật khẩu</h3>
+                        <!-- HEADER -->
+                        <div class="text-center mb-4">
 
-                        <form action="process_forgot_password.php" method="POST">
+                            <img src="logo/logo.png" alt="Logo" style="width: 85px; height: auto; margin-bottom: 10px;">
+
+                            <h3 class="fw-bold m-0">Quên mật khẩu</h3>
+
+                            <p class="text-muted small mt-1 m-0">
+                                Khôi phục tài khoản của bạn
+                            </p>
+                        </div>
+
+                        <?php if (!empty($error)): ?>
+                            <div class="alert alert-danger">
+                                <?= htmlspecialchars($error) ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($success)): ?>
+                            <div class="alert alert-success">
+                                <?= htmlspecialchars($success) ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <form method="POST">
 
                             <div class="mb-3">
-                                <label>Tên đăng nhập</label>
-                                <input type="text" name="username" class="form-control" required>
+                                <label class="form-label">Tên đăng nhập</label>
+                                <div class="input-group-custom">
+                                    <input type="text" name="username" class="form-control form-control-custom w-100"
+                                        required>
+                                    <i class="bi bi-person-fill"></i>
+                                </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" required>
+                                <label class="form-label">Email</label>
+                                <div class="input-group-custom">
+                                    <input type="email" name="email" class="form-control form-control-custom w-100"
+                                        required>
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>Mật khẩu mới</label>
-                                <input type="password" name="new_password" class="form-control" required>
+                                <label class="form-label">Mật khẩu mới</label>
+                                <div class="input-group-custom">
+                                    <input type="password" name="new_password"
+                                        class="form-control form-control-custom w-100" required>
+                                    <i class="bi bi-lock-fill"></i>
+                                </div>
                             </div>
 
-                            <button class="btn btn-primary w-100">
+                            <button class="btn btn-login w-100">
                                 Đổi mật khẩu
                             </button>
 

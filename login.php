@@ -1,10 +1,8 @@
 <?php
-
 require 'config/guest.php';
-// Kết nối database
 require 'config/database.php';
 
-// Nếu đã đăng nhập thì chuyển hướng theo quyền
+// nếu đã login
 if (isset($_SESSION['user_id'])) {
 
     if ($_SESSION['role'] === 'admin') {
@@ -12,25 +10,26 @@ if (isset($_SESSION['user_id'])) {
     } else {
         header("Location: index.php");
     }
-
     exit;
 }
 
 $error = "";
 
+/* =========================
+   XỬ LÝ LOGIN
+========================= */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
     if (empty($username) || empty($password)) {
-
         $error = "Vui lòng nhập đầy đủ thông tin.";
+    }
 
-    } else {
+    else {
 
-        $sql = "SELECT * FROM users WHERE username = ?";
-        $stmt = $db->prepare($sql);
+        $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
 
@@ -42,8 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($password === $user['password'] || password_verify($password, $user['password'])) {
 
-                // Lưu thông tin đăng nhập
-                $_SESSION['user_id'] = $user['id'];
+                /* =========================
+                   SESSION USER
+                ========================== */
+                $_SESSION['user_id']  = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
@@ -57,30 +58,31 @@ $log_stmt->close();
 // --- HẾT ĐOẠN CODE GHI NHẬT KÝ ---
                 
                 
+                $_SESSION['role']     = $user['role'];
 
-                // Chuyển hướng theo quyền
+                // 🔥 sync avatar + info
+                $_SESSION['avatar']  = $user['avatar'] ?? null;
+                $_SESSION['email']   = $user['email'] ?? null;
+                $_SESSION['phone']   = $user['phone'] ?? null;
+                $_SESSION['address'] = $user['address'] ?? null;
+
+                /* =========================
+                   REDIRECT ROLE
+                ========================== */
                 if ($user['role'] === 'admin') {
-
                     header("Location: admin/dashboard.php");
-
                 } else {
-
                     header("Location: index.php");
-
                 }
 
                 exit;
 
             } else {
-
                 $error = "Sai mật khẩu.";
-
             }
 
         } else {
-
             $error = "Tên đăng nhập không tồn tại.";
-
         }
 
         $stmt->close();
@@ -113,12 +115,19 @@ $db->close();
                     <div class="card-body p-4 p-md-5">
 
                         <div class="text-center mb-4">
-                            <div class="flower-icon mb-2">
-                                <i class="bi bi-flower1"></i>
-                            </div>
-                            <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">Đăng Nhập Hệ Thống</h3>
-                            <p class="text-muted small m-0 mt-1">Chào mừng bạn đến với không gian của Hoa Vô Sắc</p>
-                        </div>
+
+    <img src="logo/logo.png"
+         alt="Logo"
+         style="width: 90px; height: auto; margin-bottom: 10px;">
+
+    <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">
+        Đăng Nhập
+    </h3>
+
+    <p class="text-muted small m-0 mt-1">
+        Chào mừng bạn đến với không gian của Hoa Vô Sắc
+    </p>
+</div>
 
                         <?php if (!empty($error)): ?>
                             <div class="alert alert-danger">

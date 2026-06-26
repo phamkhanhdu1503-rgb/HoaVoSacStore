@@ -1,0 +1,159 @@
+/* ================= FOOTER ================= */
+
+.footer-hoa{
+
+    background:#1d1b1b;
+
+    color:#d9d9d9;
+
+    padding:60px 0 20px;
+
+    margin-top:80px;
+
+    border-top:4px solid #d63384;
+
+}
+
+.footer-logo{
+
+    color:#fff;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.footer-desc{
+
+    color:#c8c8c8;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+
+.footer-hoa h5{
+
+    color:#fff;
+
+    margin-bottom:20px;
+
+    font-weight:600;
+
+}
+
+.footer-links{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.footer-links li{
+
+    margin-bottom:12px;
+
+}
+
+.footer-links a{
+
+    color:#cfcfcf;
+
+    text-decoration:none;
+
+    transition:.25s;
+
+}
+
+.footer-links a:hover{
+
+    color:#ff6fa7;
+
+    padding-left:6px;
+
+}
+
+.footer-social{
+
+    margin-top:20px;
+
+}
+
+.footer-social a{
+
+    width:42px;
+
+    height:42px;
+
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#2f2b2b;
+
+    color:#fff;
+
+    border-radius:50%;
+
+    margin-right:10px;
+
+    text-decoration:none;
+
+    transition:.25s;
+
+    font-size:20px;
+
+}
+
+.footer-social a:hover{
+
+    background:#d63384;
+
+    transform:translateY(-4px);
+
+}
+
+.footer-hoa p{
+
+    margin-bottom:12px;
+
+    color:#d5d5d5;
+
+}
+
+.footer-hoa p i{
+
+    color:#ff6fa7;
+
+    margin-right:8px;
+
+}
+
+.footer-copy{
+
+    text-align:center;
+
+    color:#aaa;
+
+    font-size:14px;
+
+    margin-top:20px;
+
+}
+
+.footer-hoa hr{
+
+    margin-top:35px;
+
+    margin-bottom:20px;
+
+    border-color:#444;
+
+}
