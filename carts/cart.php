@@ -1,14 +1,8 @@
 <?php
+require '../config/flash.php';
 require '../config/auth.php';
 require '../config/database.php';
-session_start();
 
-// ============================
-// CHECK LOGIN
-// ============================
-if (!isset($_SESSION['user_id'])) {
-    die("Vui lòng đăng nhập!");
-}
 
 $user_id = $_SESSION['user_id'];
 

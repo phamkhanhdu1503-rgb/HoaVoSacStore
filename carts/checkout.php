@@ -1,6 +1,7 @@
 <?php
 require '../config/auth.php';
 require '../config/database.php';
+require '../config/flash.php';
 
 $user_id = $_SESSION['user_id'];
 
@@ -26,7 +27,14 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows == 0) {
-    die("Giỏ hàng của bạn đang trống!");
+
+    setFlash(
+        "warning",
+        "Giỏ hàng của bạn đang trống!"
+    );
+
+    header("Location: ../cart.php");
+    exit;
 }
 
 $total = 0;
@@ -36,7 +44,14 @@ while ($row = $result->fetch_assoc()) {
 
     // Kiểm tra tồn kho trước
     if ($row['quantity'] > $row['stock']) {
-        die("Một hoặc nhiều sản phẩm trong giỏ hàng không đủ số lượng.");
+
+        setFlash(
+            "warning",
+            "Một hoặc nhiều sản phẩm trong giỏ hàng không đủ số lượng."
+        );
+
+        header("Location: ../cart.php");
+        exit;
     }
 
     $total += $row['price'] * $row['quantity'];
@@ -146,8 +161,13 @@ try {
 
 } catch (Exception $e) {
 
-    // Có lỗi thì quay lại toàn bộ
     $db->rollback();
 
-    die("Đặt hàng thất bại! Vui lòng thử lại.");
+    setFlash(
+        "danger",
+        "Đặt hàng thất bại! Vui lòng thử lại."
+    );
+
+    header("Location: ../cart.php");
+    exit;
 }

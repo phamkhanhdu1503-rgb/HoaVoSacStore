@@ -1,4 +1,5 @@
 <?php
+require 'config/flash.php';
 require 'config/auth.php';
 require 'config/database.php';
 
@@ -50,7 +51,10 @@ $recommended_products = $recommend_stmt->get_result();
 
 <body>
 
-    <div class="container py-5">
+
+     <div class="container py-5">
+
+        <?php showFlash(); ?>
 
         <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
             <div>
