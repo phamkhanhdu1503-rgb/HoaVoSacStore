@@ -45,21 +45,22 @@ $recommended_products = $recommend_stmt->get_result();
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-     <link rel="stylesheet" href="style/my_orders.css">
-    
+    <link rel="stylesheet" href="style/my_orders.css">
+
 </head>
 
 <body>
 
 
-     <div class="container py-5">
+    <div class="container py-5">
 
         <?php showFlash(); ?>
 
         <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
             <div>
                 <h2 class="fw-bold text-dark m-0">📦 Đơn Hàng Của Tôi</h2>
-                <p class="text-muted small m-0 mt-1">Theo dõi trạng thái và lịch sử tất cả các gói hoa bạn đã đặt mua</p>
+                <p class="text-muted small m-0 mt-1">Theo dõi trạng thái và lịch sử tất cả các gói hoa bạn đã đặt mua
+                </p>
             </div>
             <div>
                 <a href="index.php" class="btn btn-home-back d-inline-flex align-items-center gap-1">
@@ -95,7 +96,8 @@ $recommended_products = $recommend_stmt->get_result();
                                         <?= date('H:i d/m/Y', strtotime($order['created_at'])) ?>
                                     </td>
                                     <td class="text-center">
-                                        <a href="order_detail.php?id=<?= $order['id'] ?>" class="btn btn-view-detail d-inline-flex align-items-center gap-1">
+                                        <a href="order_detail.php?id=<?= $order['id'] ?>"
+                                            class="btn btn-view-detail d-inline-flex align-items-center gap-1">
                                             <i class="bi bi-eye-fill"></i> Xem chi tiết
                                         </a>
                                     </td>
@@ -109,7 +111,8 @@ $recommended_products = $recommend_stmt->get_result();
             <div class="alert alert-custom-empty text-center" role="alert">
                 <i class="bi bi-bag-x fs-1 d-block mb-3" style="color: #ff758f;"></i>
                 <span class="fw-bold d-block mb-1 fs-5 text-dark">Bạn chưa có đơn hàng nào</span>
-                <p class="small text-muted m-0 mb-4">Hãy ghé thăm cửa hàng hoa và chọn cho mình những sản phẩm tươi thắm nhất nhé!</p>
+                <p class="small text-muted m-0 mb-4">Hãy ghé thăm cửa hàng hoa và chọn cho mình những sản phẩm tươi thắm
+                    nhất nhé!</p>
                 <a href="index.php" class="btn btn-view-detail rounded-pill px-4 py-2">Khám phá cửa hàng ngay</a>
             </div>
         <?php } ?>
@@ -121,9 +124,9 @@ $recommended_products = $recommend_stmt->get_result();
 
         <div class="row g-4">
             <?php if ($recommended_products && $recommended_products->num_rows > 0) { ?>
-                <?php while ($prod = $recommended_products->fetch_assoc()) { 
+                <?php while ($prod = $recommended_products->fetch_assoc()) {
                     $img = !empty($prod['image']) ? $prod['image'] : 'default.png';
-                ?>
+                    ?>
                     <div class="col-6 col-md-4 col-lg-3">
                         <div class="product-card">
                             <div class="img-container">
@@ -140,10 +143,11 @@ $recommended_products = $recommend_stmt->get_result();
                                 </div>
 
                                 <div class="action-row">
-                                    <button type="button" data-url="carts/add_to_cart.php?id=<?= $prod['id'] ?>" class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
+                                    <button type="button" data-url="carts/add_to_cart.php?id=<?= $prod['id'] ?>"
+                                        class="btn-circle-action btn-add-to-cart-ajax" title="Thêm nhanh vào giỏ">
                                         <i class="bi bi-cart-plus"></i>
                                     </button>
-                                    
+
                                     <a href="product_detail.php?id=<?= $prod['id'] ?>" class="btn-outline-hoa">Chi tiết</a>
                                 </div>
                             </div>
@@ -158,28 +162,28 @@ $recommended_products = $recommend_stmt->get_result();
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
-    document.querySelectorAll('.btn-add-to-cart-ajax').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const url = this.getAttribute('data-url');
-            
-            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Đã thêm sản phẩm vào giỏ hàng! ✨');
-                    // Nếu trang này có nhét Navbar vào, bạn có thể cộng dồn số lượng Badge ở đây
-                } else {
-                    alert('Thêm vào giỏ hàng thành công! ✨');
-                }
-            }).catch(() => {
-                // Đề phòng trường hợp file add_to_cart của bạn chuyển hướng thay vì trả json
-                window.location.reload(); 
+        document.querySelectorAll('.btn-add-to-cart-ajax').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = this.getAttribute('data-url');
+
+                fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Đã thêm sản phẩm vào giỏ hàng! ✨');
+                            // Nếu trang này có nhét Navbar vào, bạn có thể cộng dồn số lượng Badge ở đây
+                        } else {
+                            alert('Thêm vào giỏ hàng thành công! ✨');
+                        }
+                    }).catch(() => {
+                        // Đề phòng trường hợp file add_to_cart của bạn chuyển hướng thay vì trả json
+                        window.location.reload();
+                    });
             });
         });
-    });
     </script>
 </body>
 

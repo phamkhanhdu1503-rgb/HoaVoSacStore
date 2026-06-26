@@ -25,49 +25,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($username) || empty($password)) {
         $error = "Vui lòng nhập đầy đủ thông tin.";
-    }
-
-    else {
+    } else {
 
         $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
-
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
 
             $user = $result->fetch_assoc();
 
+            // kiểm tra mật khẩu
             if ($password === $user['password'] || password_verify($password, $user['password'])) {
 
                 /* =========================
-                   SESSION USER
+                   SET SESSION
                 ========================== */
-                $_SESSION['user_id']  = $user['id'];
+                $_SESSION['user_id'] = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
-                // --- ĐOẠN CODE BACKEND: GHI NHẬT KÝ ĐĂNG NHẬP ---
-$ip_address = $_SERVER['REMOTE_ADDR']; // Lấy địa chỉ IP máy truy cập
-$log_sql = "INSERT INTO login_log (username, fullname, role, ip_address) VALUES (?, ?, ?, ?)";
-$log_stmt = $db->prepare($log_sql);
-$log_stmt->bind_param("ssss", $user['username'], $user['fullname'], $user['role'], $ip_address);
-$log_stmt->execute();
-$log_stmt->close();
-// --- HẾT ĐOẠN CODE GHI NHẬT KÝ ---
-                
-                
-                $_SESSION['role']     = $user['role'];
 
-                // 🔥 sync avatar + info
-                $_SESSION['avatar']  = $user['avatar'] ?? null;
-                $_SESSION['email']   = $user['email'] ?? null;
-                $_SESSION['phone']   = $user['phone'] ?? null;
+                $_SESSION['avatar'] = $user['avatar'] ?? null;
+                $_SESSION['email'] = $user['email'] ?? null;
+                $_SESSION['phone'] = $user['phone'] ?? null;
                 $_SESSION['address'] = $user['address'] ?? null;
 
                 /* =========================
-                   REDIRECT ROLE
+                   LOG LOGIN HISTORY
+                ========================== */
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                $status = 'success';
+
+                $log_sql = "INSERT INTO login_history 
+                            (user_id, username, ip_address, user_agent, status)
+                            VALUES (?, ?, ?, ?, ?)";
+
+                $log_stmt = $db->prepare($log_sql);
+                $log_stmt->bind_param(
+                    "issss",
+                    $user['id'],
+                    $user['username'],
+                    $ip_address,
+                    $user_agent,
+                    $status
+                );
+                $log_stmt->execute();
+                $log_stmt->close();
+
+                /* =========================
+                   REDIRECT
                 ========================== */
                 if ($user['role'] === 'admin') {
                     header("Location: admin/dashboard.php");
@@ -116,18 +125,16 @@ $db->close();
 
                         <div class="text-center mb-4">
 
-    <img src="logo/logo.png"
-         alt="Logo"
-         style="width: 90px; height: auto; margin-bottom: 10px;">
+                            <img src="logo/logo.png" alt="Logo" style="width: 90px; height: auto; margin-bottom: 10px;">
 
-    <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">
-        Đăng Nhập
-    </h3>
+                            <h3 class="fw-bold text-dark m-0" style="letter-spacing: -0.5px;">
+                                Đăng Nhập
+                            </h3>
 
-    <p class="text-muted small m-0 mt-1">
-        Chào mừng bạn đến với không gian của Hoa Vô Sắc
-    </p>
-</div>
+                            <p class="text-muted small m-0 mt-1">
+                                Chào mừng bạn đến với không gian của Hoa Vô Sắc
+                            </p>
+                        </div>
 
                         <?php if (!empty($error)): ?>
                             <div class="alert alert-danger">

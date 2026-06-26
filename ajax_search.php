@@ -37,10 +37,7 @@ if (isset($_GET['keyword']) && !empty(trim($_GET['keyword']))) {
 
                 <a href="product_detail.php?id=<?= $row['id'] ?>" class="suggestion-item">
 
-                    <img
-                        src="<?= htmlspecialchars($image) ?>"
-                        alt="<?= htmlspecialchars($row['name']) ?>"
-                        class="suggestion-img">
+                    <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($row['name']) ?>" class="suggestion-img">
 
                     <div class="suggestion-info">
 

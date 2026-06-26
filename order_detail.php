@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
     die("Thiếu mã đơn hàng!");
 }
 
-$order_id = (int)$_GET['id'];
+$order_id = (int) $_GET['id'];
 
 // ============================
 // LẤY ĐƠN HÀNG
@@ -76,7 +76,8 @@ $items = $stmt->get_result();
 
     <style>
         body {
-            background: #fff8f9; /* Nền trắng hồng nhẹ nhàng toàn trang cho khách hàng */
+            background: #fff8f9;
+            /* Nền trắng hồng nhẹ nhàng toàn trang cho khách hàng */
             font-family: system-ui, -apple-system, sans-serif;
         }
 
@@ -95,8 +96,10 @@ $items = $stmt->get_result();
             border-spacing: 0;
             border: none;
         }
+
         .table-custom thead th {
-            background-color: #ffccd5 !important; /* Đầu bảng màu hồng pastel sữa */
+            background-color: #ffccd5 !important;
+            /* Đầu bảng màu hồng pastel sữa */
             color: #8a3a4b !important;
             font-weight: 700;
             text-transform: uppercase;
@@ -105,6 +108,7 @@ $items = $stmt->get_result();
             padding: 14px 16px;
             border: none;
         }
+
         .table-custom tbody td {
             padding: 14px 16px;
             vertical-align: middle;
@@ -113,16 +117,26 @@ $items = $stmt->get_result();
             border-bottom: 1px solid #f8e9ec;
             border-top: none;
         }
+
         .table-custom tbody tr:last-child td {
             border-bottom: none;
         }
+
         .table-custom tbody tr:hover td {
-            background-color: #fff0f2 !important; /* Hiệu ứng hover dòng nhẹ */
+            background-color: #fff0f2 !important;
+            /* Hiệu ứng hover dòng nhẹ */
         }
 
         /* Bo góc cho phần đầu bảng */
-        .table-custom thead tr th:first-child { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
-        .table-custom thead tr th:last-child { border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+        .table-custom thead tr th:first-child {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        .table-custom thead tr th:last-child {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
 
         /* Bo khung ảnh sản phẩm nhỏ nhắn */
         .product-img-thump {
@@ -164,6 +178,7 @@ $items = $stmt->get_result();
             text-decoration: none;
             transition: all 0.2s;
         }
+
         .btn-back-list:hover {
             background-color: #e2e6ea;
             color: #495057;
@@ -192,8 +207,9 @@ $items = $stmt->get_result();
             <!-- CỘT TRÁI (8 COL): DANH SÁCH SẢN PHẨM MUA -->
             <div class="col-xl-8 col-lg-7">
                 <div class="card info-card h-100">
-                    <h5 class="fw-bold text-dark mb-4"><i class="bi bi-flower1 text-secondary me-1"></i> Sản phẩm đã chọn đặt</h5>
-                    
+                    <h5 class="fw-bold text-dark mb-4"><i class="bi bi-flower1 text-secondary me-1"></i> Sản phẩm đã
+                        chọn đặt</h5>
+
                     <div class="table-responsive">
                         <table class="table table-custom table-hover m-0">
                             <thead>
@@ -206,12 +222,12 @@ $items = $stmt->get_result();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while($item = $items->fetch_assoc()) { ?>
+                                <?php while ($item = $items->fetch_assoc()) { ?>
                                     <tr>
                                         <!-- Hình ảnh gói hoa -->
                                         <td>
-                                            <img src="uploads/<?= htmlspecialchars($item['image']) ?>" 
-                                                 width="70" height="70" class="product-img-thump">
+                                            <img src="uploads/<?= htmlspecialchars($item['image']) ?>" width="70"
+                                                height="70" class="product-img-thump">
                                         </td>
 
                                         <!-- Tên gói hoa -->
@@ -244,11 +260,12 @@ $items = $stmt->get_result();
             <!-- CỘT PHẢI (4 COL): TRẠNG THÁI & TỔNG TIỀN -->
             <div class="col-xl-4 col-lg-5">
                 <div class="d-flex flex-column gap-4 h-100">
-                    
+
                     <!-- Card tóm tắt trạng thái vận đơn -->
                     <div class="card info-card flex-grow-1">
-                        <h5 class="fw-bold text-dark mb-4"><i class="bi bi-info-circle text-secondary me-1"></i> Trạng thái đơn hàng</h5>
-                        
+                        <h5 class="fw-bold text-dark mb-4"><i class="bi bi-info-circle text-secondary me-1"></i> Trạng
+                            thái đơn hàng</h5>
+
                         <div class="mb-4">
                             <label class="text-muted small d-block mb-2">Trạng thái xử lý hiện tại</label>
                             <span class="status-badge">
@@ -259,19 +276,22 @@ $items = $stmt->get_result();
                         <div class="mb-2">
                             <label class="text-muted small d-block mb-1">Thời gian ghi nhận đặt hàng</label>
                             <span class="fw-semibold text-dark small">
-                                <i class="bi bi-clock text-muted me-1 small"></i> <?= date('H:i - d/m/Y', strtotime($order['created_at'])) ?>
+                                <i class="bi bi-clock text-muted me-1 small"></i>
+                                <?= date('H:i - d/m/Y', strtotime($order['created_at'])) ?>
                             </span>
                         </div>
                     </div>
 
                     <!-- Card tổng thành toán hóa đơn -->
-                    <div class="card info-card border-top border-pink border-4" style="border-top-color: #ff758f !important;">
+                    <div class="card info-card border-top border-pink border-4"
+                        style="border-top-color: #ff758f !important;">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <span class="text-muted small fw-bold text-uppercase">Tổng thanh toán</span>
                                 <div class="total-price-banner mt-1"><?= number_format($order['total']) ?>₫</div>
                             </div>
-                            <div class="bg-danger-subtle text-danger rounded-3 p-3" style="background-color: #ffe5ec !important; color: #ff758f !important;">
+                            <div class="bg-danger-subtle text-danger rounded-3 p-3"
+                                style="background-color: #ffe5ec !important; color: #ff758f !important;">
                                 <i class="bi bi-wallet2 fs-3"></i>
                             </div>
                         </div>
