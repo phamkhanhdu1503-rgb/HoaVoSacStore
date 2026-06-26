@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require 'config/guest.php';
 // Kết nối database
 require 'config/database.php';

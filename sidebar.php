@@ -13,7 +13,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
 
         <div class="sidebar-menu">
-            <a class="sidebar-link <?= ($current_page == 'dashboard.php' || $current_page == 'index.php') ? 'active' : '' ?>" href="/HoaVoSacStore/dashboard.php">
+            <a class="sidebar-link <?= ($current_page == 'admin/dashboard.php' || $current_page == 'index.php') ? 'active' : '' ?>" href="/HoaVoSacStore/admin/dashboard.php">
                 <i class="bi bi-speedometer2"></i> Tổng Quan Dashboard
             </a>
             

@@ -18,7 +18,7 @@ require "../config/database.php";
 
 <body>
 
-    <?php include 'sidebar.php'; ?>
+    <?php include '../sidebar.php'; ?>
 
     <div class="main-content">
         <div class="container-fluid p-0">
@@ -106,10 +106,10 @@ require "../config/database.php";
                 
                 <?php
                 $menus = [
-                    ['url' => 'admin/products.php', 'icon' => 'bi-grid-1x2-fill', 'title' => 'Quản lý sản phẩm', 'color' => 'text-secondary'],
-                    ['url' => 'admin/add_product.php', 'icon' => 'bi-plus-circle-fill', 'title' => 'Thêm sản phẩm mới', 'color' => 'text-secondary'],
-                    ['url' => 'categories.php', 'icon' => 'bi-folder-fill', 'title' => 'Danh mục phân loại', 'color' => 'text-secondary'],
-                    ['url' => 'admin/orders.php', 'icon' => 'bi-receipt', 'title' => 'Danh sách đơn hàng', 'color' => 'text-secondary'],
+                    ['url' => 'products.php', 'icon' => 'bi-grid-1x2-fill', 'title' => 'Quản lý sản phẩm', 'color' => 'text-secondary'],
+
+                    ['url' => 'category.php', 'icon' => 'bi-folder-fill', 'title' => 'Danh mục phân loại', 'color' => 'text-secondary'],
+                    ['url' => 'orders.php', 'icon' => 'bi-receipt', 'title' => 'Quản lý đơn hàng', 'color' => 'text-secondary'],
                     ['url' => 'admin/order_detail.php', 'icon' => 'bi-file-earmark-text-fill', 'title' => 'Chi tiết đơn đặt', 'color' => 'text-secondary'],
                     ['url' => 'carts/cart.php', 'icon' => 'bi-cart-fill', 'title' => 'Xem giỏ hàng', 'color' => 'text-secondary'],
                     ['url' => 'carts/checkout.php', 'icon' => 'bi-credit-card-fill', 'title' => 'Cổng thanh toán', 'color' => 'text-secondary']
