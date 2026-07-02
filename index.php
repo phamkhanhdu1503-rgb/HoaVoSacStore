@@ -95,7 +95,7 @@ $result_best_seller = mysqli_query(
     <div class="container">
       <a class="navbar-brand d-flex align-items-center navbar-brand-hoa" href="index.php">
         <img src="logo/logo.png" alt="Hoa Vô Sắc" class="logo-img">
-        <span class="shop-name ms-2">Read Thư 𝓗𝓸𝓪 𝓥𝓸 𝓢𝓪𝓬</span>
+        <span class="shop-name ms-2">𝓗𝓸𝓪 𝓥𝓸 𝓢𝓪𝓬</span>
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
